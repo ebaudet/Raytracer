@@ -19,54 +19,58 @@
 # define HEIGHT		1000
 # define KEY_ESC	65307
 
-typedef struct	s_vector
+typedef struct		s_vector
 {
-	double		x;
-	double		y;
-	double		z;
-}				t_vector;
+	double			x;
+	double			y;
+	double			z;
+}					t_vector;
 
-typedef struct	s_ray
+typedef struct		s_ray
 {
-	t_vector	*o;
-	t_vector	*d;
-}				t_ray;
+	t_vector		*o;
+	t_vector		*d;
+	char			type;
+}					t_ray;
 
-typedef struct	s_sphere
+typedef struct		s_sphere
 {
-	t_vector	*position;
-	double		radius;
-	int			color;
-}				t_sphere;
+	t_vector		*position;
+	double			radius;
+	int				color;
+	struct s_sphere	*next;
+	char			type;
+}					t_sphere;
 
-typedef struct	s_light
+typedef struct		s_light
 {
-	t_vector	*position;
-	int			color;
-}				t_light;
+	t_vector		*position;
+	int				color;
+	char			type;
+}					t_light;
 
-typedef struct	s_img
+typedef struct		s_img
 {
-	void		*img;
-	char		*data;
-	int			bpp;
-	int			size_line;
-	int			endian;
-}				t_img;
+	void			*img;
+	char			*data;
+	int				bpp;
+	int				size_line;
+	int				endian;
+}					t_img;
 
-typedef struct	s_win
+typedef struct		s_win
 {
-	void		*mlx;
-	void		*win;
-	t_img		*img;
-}				t_win;
+	void			*mlx;
+	void			*win;
+	t_img			*img;
+}					t_win;
 
-typedef struct	s_data
+typedef struct		s_data
 {
-	t_sphere	*sphere;
-	t_vector	*cam;
-	t_light		*light;
-}				t_data;
+	t_sphere		*sphere;
+	t_vector		*cam;
+	t_light			*light;
+}					t_data;
 
 /*
 ** error.c
@@ -100,7 +104,7 @@ t_vector	*vector_sub(t_vector *a, t_vector *b);
 /*
 ** sphere.c
 */
-t_sphere	*sphere_new(t_vector *position, double radius, int color);
+int			sphere_new(t_vector *position, double radius, int color);
 void		sphere_del(t_sphere *sphere);
 int			intersection_sphere(t_sphere *sphere, t_ray *ray, double *t);
 

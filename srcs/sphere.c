@@ -14,15 +14,29 @@
 #include <math.h>
 #include "rtv1.h"
 
-t_sphere	*sphere_new(t_vector *position, double radius, int color)
+int		sphere_new(t_vector *position, double radius, int color)
 {
+	t_data		*data;
 	t_sphere	*sphere;
+	t_sphere	*tmp;
 
-	sphere = (t_sphere *)malloc(sizeof(t_sphere));
+	data = data_init();
+	if ((sphere = (t_sphere *)malloc(sizeof(t_sphere))) == NULL)
+		return (-1);
 	sphere->position = position;
 	sphere->radius = radius;
 	sphere->color = color;
-	return (sphere);
+	sphere->next = NULL;
+	if (data->sphere)
+	{
+		tmp = data->sphere;
+		while (tmp->next != NULL)
+			tmp = tmp->next;
+		tmp->next = sphere;
+	}
+	else
+		data->sphere = sphere;
+	return (0);
 }
 
 void		sphere_del(t_sphere *sphere)
@@ -43,8 +57,7 @@ int			intersection_sphere(t_sphere *sphere, t_ray *ray, double *t)
 	double		t0;
 	double		t1;
 
-	dist = vector_copy(sphere->position);
-	dist = vector_sub(dist, ray->o);
+	dist = vector_sub(vector_copy(sphere->position), ray->o);
 	b = 2 * vector_dot(ray->d, dist);
 	delta = vector_dot(dist, dist) - pow(sphere->radius, 2);
 	delta = pow(b, 2) - 4 * delta;
