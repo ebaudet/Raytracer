@@ -55,7 +55,7 @@ int			intersection_plan(t_plan *plan, t_ray *ray, double *t)
 	alpha = vector_dot(plan->normal, ray->o) + plan->constante;
 	alpha = -alpha;
 	alpha = alpha / vector_dot(plan->normal, ray->d);
-	if (alpha < *t)
+	if ((alpha > 0.1) && (alpha < *t))
 	{
 		*t = alpha;
 		return (0);

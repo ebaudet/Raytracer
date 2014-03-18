@@ -33,7 +33,8 @@ void	init_scene(void)
 	sphere_new(vector_new(500, 0, 300), 300, 0xC8FE2E);
 	sphere_new(vector_new(-500, 0, 2000), 300, 0x2E9AFE);
 	plan_new(vector_new(5000, -3000, -5000), -1000, 0xBDBDBD);
-	plan_new(vector_new(5000, -2000, -5000), -1000, 0xBCF5A9);
+	plan_new(vector_new(4000, -2000, -5000), 4000, 0xBCF5A9);
+	/*plan_new(vector_new(0, 0, 10000), 0, 0xF6E3CE);*/
 	data->cam = vector_new(0, 0, -(WIDTH / (2 * tan(M_PI / 12))));
 	data->light	= light_new(vector_new(500, 0, 4000), 0xFAFAFA);
 }
