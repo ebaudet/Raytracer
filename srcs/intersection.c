@@ -12,20 +12,36 @@
 
 #include "rtv1.h"
 
-int		intersection(t_data *data, t_ray *ray, double *dist)
+static t_sphere		*sphere_intersection(t_data *data, t_ray *ray, double *dist)
 {
-	double	object_dist;
+	t_sphere	*tmp;
+	t_sphere	*current;
 
-	object_dist = *dist;
-
+	current = NULL;
+	tmp = data->sphere;
+	while (tmp)
+	{
+		if (!intersection_sphere(tmp, ray, dist))
+			current = tmp;
+		tmp = tmp->next;
+	}
+	return (current);
 }
 
-char	type_object(void *ptr)
+void				*intersection(t_data *data, t_ray *ray, double *dist)
+{
+	void	*object;
+
+	object = sphere_intersection(data, ray, dist);
+	return (object);
+}
+
+char				type_object(void *ptr)
 {
 	if (ptr)
 	{
-		if (ptr->type)
-			return (ptr->type);
+		if ((((t_struct *)ptr))->type)
+			return (((t_struct *)ptr)->type);
 	}
 	return (0);
 }

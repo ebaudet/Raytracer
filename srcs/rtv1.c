@@ -29,8 +29,16 @@ void	init_scene(void)
 	data = data_init();
 	if (sphere_new(vector_new(0, 0, 0), 300, 0xAA0022) == -1)
 		ft_error("error malloc");
+	if (sphere_new(vector_new(0, 200, 500), 300, 0xCC2EFA) == -1)
+		ft_error("error malloc");
+	if (sphere_new(vector_new(0, -200, 500), 300, 0xFFBF00) == -1)
+		ft_error("error malloc");
+	if (sphere_new(vector_new(200, 0, 500), 300, 0xC8FE2E) == -1)
+		ft_error("error malloc");
+	if (sphere_new(vector_new(-200, 0, 500), 300, 0x2E9AFE) == -1)
+		ft_error("error malloc");
 	data->cam = vector_new(0, 0, -(WIDTH / (2 * tan(M_PI / 12))));
-	data->light	= light_new(vector_new(0, 0, 500), 0xFAFAFA);
+	data->light	= light_new(vector_new(-700, 900, 0), 0xFAFAFA);
 }
 
 void	display_screen(t_img *img)
@@ -59,7 +67,8 @@ void	color_pixel(t_img *img, int x, int y, t_ray *rayon)
 	t_vector	b;
 	t_vector	ray_dir;
 	double		coef;
-	int			intersection;
+	void		*inter;
+	int			color;
 
 	d = data_init();
 	vector_set(&b, x - (WIDTH / 2), y - (HEIGHT / 2), 0);
@@ -70,11 +79,11 @@ void	color_pixel(t_img *img, int x, int y, t_ray *rayon)
 	coef = 200000;
 
 	/* calcul de l'intersection avec un objet */
-	intersection = intersection_sphere(d->sphere, rayon, &coef);
-	if (intersection != -1 && coef < 200000)
+	inter = intersection(d, rayon, &coef);
+	if (inter != NULL && coef < 200000)
 	{
-		intersection = color_find(d->sphere->color, d, &ray_dir, coef);
-		eb_put_pixel_to_img(img, x, y, intersection);
+		color = color_find(((t_struct *)inter)->color, d, &ray_dir, coef);
+		eb_put_pixel_to_img(img, x, y, color);
 	}
 }
 

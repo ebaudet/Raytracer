@@ -19,6 +19,12 @@
 # define HEIGHT		1000
 # define KEY_ESC	65307
 
+typedef struct		s_struct
+{
+	char			type;
+	int				color;
+}					t_struct;
+
 typedef struct		s_vector
 {
 	double			x;
@@ -28,25 +34,25 @@ typedef struct		s_vector
 
 typedef struct		s_ray
 {
+	char			type;
 	t_vector		*o;
 	t_vector		*d;
-	char			type;
 }					t_ray;
 
 typedef struct		s_sphere
 {
+	char			type;
+	int				color;
 	t_vector		*position;
 	double			radius;
-	int				color;
 	struct s_sphere	*next;
-	char			type;
 }					t_sphere;
 
 typedef struct		s_light
 {
-	t_vector		*position;
-	int				color;
 	char			type;
+	int				color;
+	t_vector		*position;
 }					t_light;
 
 typedef struct		s_img
@@ -152,5 +158,11 @@ int			color_find(int color, t_data *d, t_vector *ray_di
 	, double coef);
 int			color_lambert(int color, double lambert);
 int			color_norm(int red, int green, int blue);
+
+/*
+** intersection.c
+*/
+void		*intersection(t_data *data, t_ray *ray, double *dist);
+char		type_object(void *ptr);
 
 #endif /* !RTV1_H */
