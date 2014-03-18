@@ -28,11 +28,30 @@ static t_sphere		*sphere_intersection(t_data *data, t_ray *ray, double *dist)
 	return (current);
 }
 
+static t_plan		*plan_intersection(t_data *data, t_ray *ray, double *dist)
+{
+	t_plan		*tmp;
+	t_plan		*current;
+
+	current = NULL;
+	tmp = data->plan;
+	while (tmp)
+	{
+		if (!intersection_plan(tmp, ray, dist))
+			current = tmp;
+		tmp = tmp->next;
+	}
+	return (current);
+}
+
 void				*intersection(t_data *data, t_ray *ray, double *dist)
 {
 	void	*object;
+	void	*tmp;
 
 	object = sphere_intersection(data, ray, dist);
+	if ((tmp = plan_intersection(data, ray, dist)) != NULL)
+		object = tmp;
 	return (object);
 }
 

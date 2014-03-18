@@ -39,3 +39,10 @@ t_vector	*vector_sub(t_vector *a, t_vector *b)
 	v->z = a->z - b->z;
 	return (v);
 }
+
+void		vector_sub_assoc(t_vector *vector, t_vector *a, t_vector *b)
+{
+	vector->x = a->x - b->x;
+	vector->y = a->y - b->y;
+	vector->z = a->z - b->z;
+}

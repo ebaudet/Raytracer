@@ -39,6 +39,15 @@ typedef struct		s_ray
 	t_vector		*d;
 }					t_ray;
 
+typedef struct		s_plan
+{
+	char			type;
+	int				color;
+	t_vector		*normal;
+	int				constante;
+	struct s_plan	*next;
+}					t_plan;
+
 typedef struct		s_sphere
 {
 	char			type;
@@ -74,6 +83,7 @@ typedef struct		s_win
 typedef struct		s_data
 {
 	t_sphere		*sphere;
+	t_plan			*plan;
 	t_vector		*cam;
 	t_light			*light;
 }					t_data;
@@ -98,6 +108,7 @@ void		display_scene(t_img *img);
 t_vector	*vector_new(double x, double y, double z);
 void		vector_del(t_vector *vector);
 void		vector_set(t_vector *vector, double x, double y, double z);
+void		vector_set_copy(t_vector *vector, t_vector *copy);
 t_vector	*vector_copy(t_vector *a);
 
 /*
@@ -106,13 +117,21 @@ t_vector	*vector_copy(t_vector *a);
 void		vector_normalize(t_vector *v);
 double		vector_dot(t_vector *a, t_vector *b);
 t_vector	*vector_sub(t_vector *a, t_vector *b);
+void		vector_sub_assoc(t_vector *vector, t_vector *a, t_vector *b);
 
 /*
 ** sphere.c
 */
-int			sphere_new(t_vector *position, double radius, int color);
+void		sphere_new(t_vector *position, double radius, int color);
 void		sphere_del(t_sphere *sphere);
 int			intersection_sphere(t_sphere *sphere, t_ray *ray, double *t);
+
+/*
+** plan.c
+*/
+void		plan_new(t_vector *normal, int constante, int color);
+void		plan_del(t_plan *plan);
+int			intersection_plan(t_plan *plan, t_ray *ray, double *t);
 
 /*
 ** light.c

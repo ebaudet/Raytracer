@@ -40,6 +40,13 @@ void		vector_set(t_vector *vector, double x, double y, double z)
 	vector->z = z;
 }
 
+void		vector_set_copy(t_vector *vector, t_vector *copy)
+{
+	vector->x = copy->x;
+	vector->y = copy->y;
+	vector->z = copy->z;
+}
+
 t_vector	*vector_copy(t_vector *a)
 {
 	t_vector	*v;

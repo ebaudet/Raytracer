@@ -24,14 +24,10 @@ int		color_find(void *object, t_data *d, t_vector *ray_dir, double coef)
 	impact.y = d->cam->y + coef * ray_dir->y;
 	impact.z = d->cam->z + coef * ray_dir->z;
 	if (type_object(object) == 's')
-	{
-		normal.x = impact.x - ((t_sphere *)object)->position->x;
-		normal.y = impact.y - ((t_sphere *)object)->position->y;
-		normal.z = impact.z - ((t_sphere *)object)->position->z;
-	}
-	light.x = d->light->position->x - impact.x;
-	light.y = d->light->position->y - impact.y;
-	light.z = d->light->position->z - impact.z;
+		vector_sub_assoc(&normal, &impact, ((t_sphere *)object)->position);
+	if (type_object(object) == 'p')
+		vector_set_copy(&normal, ((t_plan *)object)->normal);
+	vector_sub_assoc(&light, d->light->position, &impact);
 	vector_normalize(&light);
 	vector_normalize(&normal);
 	lambert = vector_dot(&light, &normal);

@@ -14,7 +14,7 @@
 #include <math.h>
 #include "rtv1.h"
 
-int		sphere_new(t_vector *position, double radius, int color)
+void		sphere_new(t_vector *position, double radius, int color)
 {
 	t_data		*data;
 	t_sphere	*sphere;
@@ -22,12 +22,12 @@ int		sphere_new(t_vector *position, double radius, int color)
 
 	data = data_init();
 	if ((sphere = (t_sphere *)malloc(sizeof(t_sphere))) == NULL)
-		return (-1);
+		ft_error("error malloc");
+	sphere->type = 's';
+	sphere->color = color;
 	sphere->position = position;
 	sphere->radius = radius;
-	sphere->color = color;
 	sphere->next = NULL;
-	sphere->type = 's';
 	if (data->sphere)
 	{
 		tmp = data->sphere;
@@ -37,7 +37,6 @@ int		sphere_new(t_vector *position, double radius, int color)
 	}
 	else
 		data->sphere = sphere;
-	return (0);
 }
 
 void		sphere_del(t_sphere *sphere)

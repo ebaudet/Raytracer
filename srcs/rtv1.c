@@ -27,18 +27,15 @@ void	init_scene(void)
 	t_data		*data;
 
 	data = data_init();
-	if (sphere_new(vector_new(0, 0, 0), 300, 0xAA0022) == -1)
-		ft_error("error malloc");
-	if (sphere_new(vector_new(0, 200, 500), 300, 0xCC2EFA) == -1)
-		ft_error("error malloc");
-	if (sphere_new(vector_new(0, -200, 500), 300, 0xFFBF00) == -1)
-		ft_error("error malloc");
-	if (sphere_new(vector_new(200, 0, 500), 300, 0xC8FE2E) == -1)
-		ft_error("error malloc");
-	if (sphere_new(vector_new(-200, 0, 500), 300, 0x2E9AFE) == -1)
-		ft_error("error malloc");
+	sphere_new(vector_new(0, 0, 3000), 50, 0xAA0022);
+	sphere_new(vector_new(0, 500, 200), 300, 0xCC2EFA);
+	sphere_new(vector_new(0, -500, 1000), 300, 0xFFBF00);
+	sphere_new(vector_new(500, 0, 300), 300, 0xC8FE2E);
+	sphere_new(vector_new(-500, 0, 2000), 300, 0x2E9AFE);
+	plan_new(vector_new(5000, -3000, -5000), -1000, 0xBDBDBD);
+	plan_new(vector_new(5000, -2000, -5000), -1000, 0xBCF5A9);
 	data->cam = vector_new(0, 0, -(WIDTH / (2 * tan(M_PI / 12))));
-	data->light	= light_new(vector_new(-700, 900, 500), 0xFAFAFA);
+	data->light	= light_new(vector_new(500, 0, 4000), 0xFAFAFA);
 }
 
 void	display_screen(t_img *img)
