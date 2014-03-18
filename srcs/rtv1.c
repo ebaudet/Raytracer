@@ -38,7 +38,7 @@ void	init_scene(void)
 	if (sphere_new(vector_new(-200, 0, 500), 300, 0x2E9AFE) == -1)
 		ft_error("error malloc");
 	data->cam = vector_new(0, 0, -(WIDTH / (2 * tan(M_PI / 12))));
-	data->light	= light_new(vector_new(-700, 900, 0), 0xFAFAFA);
+	data->light	= light_new(vector_new(-700, 900, 500), 0xFAFAFA);
 }
 
 void	display_screen(t_img *img)
@@ -82,7 +82,7 @@ void	color_pixel(t_img *img, int x, int y, t_ray *rayon)
 	inter = intersection(d, rayon, &coef);
 	if (inter != NULL && coef < 200000)
 	{
-		color = color_find(((t_struct *)inter)->color, d, &ray_dir, coef);
+		color = color_find(inter, d, &ray_dir, coef);
 		eb_put_pixel_to_img(img, x, y, color);
 	}
 }

@@ -154,7 +154,7 @@ t_data		*data_init(void);
 /*
 ** color.c
 */
-int			color_find(int color, t_data *d, t_vector *ray_di
+int			color_find(void *object, t_data *d, t_vector *ray_di
 	, double coef);
 int			color_lambert(int color, double lambert);
 int			color_norm(int red, int green, int blue);

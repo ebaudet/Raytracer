@@ -27,6 +27,7 @@ int		sphere_new(t_vector *position, double radius, int color)
 	sphere->radius = radius;
 	sphere->color = color;
 	sphere->next = NULL;
+	sphere->type = 's';
 	if (data->sphere)
 	{
 		tmp = data->sphere;
