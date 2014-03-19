@@ -10,7 +10,42 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <math.h>
 #include "rtv1.h"
+
+int		color_speculaire(void *object, int color, t_data *d, t_vector *ray_dir, double coef)
+{
+	double		spec;
+	t_vector	light;
+	t_vector	reflect;
+	t_vector	normal;
+	t_vector	impact;
+
+	impact.x = d->cam->x + coef * ray_dir->x;
+	impact.y = d->cam->y + coef * ray_dir->y;
+	impact.z = d->cam->z + coef * ray_dir->z;
+	if (type_object(object) == 's')
+		vector_sub_assoc(&normal, &impact, ((t_sphere *)object)->position);
+	if (type_object(object) == 'p')
+		vector_set_copy(&normal, ((t_plan *)object)->normal);
+	vector_normalize(&normal);
+
+	vector_sub_assoc(&light, &impact, d->light->position);
+
+	vector_mult(&light, &light, -1);
+
+	vector_normalize(&light);
+	vector_mult(&reflect, &normal, -2 * vector_dot(&light, &normal));
+	vector_sub_assoc(&reflect, &light, &reflect);
+	vector_normalize(&reflect);
+
+	/*vector_mult(&light, &light, -1);*/
+
+
+	if ((spec = vector_dot(&light, &reflect)) > 0.99)
+		color = color_lambert(color, pow(spec, 100));
+	return (color);
+}
 
 int		color_find(void *object, t_data *d, t_vector *ray_dir, double coef)
 {
@@ -31,7 +66,9 @@ int		color_find(void *object, t_data *d, t_vector *ray_dir, double coef)
 	vector_normalize(&light);
 	vector_normalize(&normal);
 	lambert = vector_dot(&light, &normal);
+	color = ((t_struct *)object)->color;
 	color = color_lambert(((t_struct *)object)->color, lambert);
+	color = color_speculaire(object, color, d, ray_dir, coef);
 	return (color);
 }
 

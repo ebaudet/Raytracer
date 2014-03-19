@@ -30,16 +30,18 @@ void	init_scene(void)
 	sphere_new(vector_new(180, 0, -1000), 50, 0xAA0022);
 	sphere_new(vector_new(0, 50, -1500), 30, 0xCC2EFA);
 	sphere_new(vector_new(0, -50, -700), 10, 0xFFBF00);
-	sphere_new(vector_new(50, 0, -800), 2, 0xC8FE2E);
-	sphere_new(vector_new(-50, 0, -900), 10, 0x2E9AFE);
-	plan_new(vector_new(0, 1, 0), -50, 0xBDBDBD);
+	sphere_new(vector_new(50, 0, -800), 20, 0xC8FE2E);
+	sphere_new(vector_new(-150, 0, -900), 80, 0x2E9AFE);
+	
+	/*plan_new(vector_new(0, 1, 0), -100, 0xBDBDBD);
+	plan_new(vector_new(20, 0, 1), -400, 0xDF013A);
+	plan_new(vector_new(-20, 0, 1), -400, 0x01DF01);*/
+
 	/*plan_new(vector_new(0, 0, 1), -5000, 0xF6E3CE);*/
-	plan_new(vector_new(20, 0, 1), -100, 0xDF013A);
-	plan_new(vector_new(-20, 0, 1), -100, 0x01DF01);
 	/*plan_new(vector_new(4000, -2000, -5000), 4000, 0xBCF5A9);*/
 	/*plan_new(vector_new(0, 0, 10000), 0, 0xF6E3CE);*/
 	data->cam = vector_new(0, 0, -(WIDTH / (2 * tan(M_PI / 12))));
-	data->light	= light_new(vector_new(100, -500, -2000), 0xFAFAFA);
+	data->light	= light_new(vector_new(500, -1000, -4000), 0xFAFAFA);
 }
 
 void	display_screen(t_img *img)

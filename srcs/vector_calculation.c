@@ -46,3 +46,10 @@ void		vector_sub_assoc(t_vector *vector, t_vector *a, t_vector *b)
 	vector->y = a->y - b->y;
 	vector->z = a->z - b->z;
 }
+
+void		vector_mult(t_vector *vector, t_vector *a, double val)
+{
+	vector->x = a->x * val;
+	vector->y = a->y * val;
+	vector->z = a->z * val;
+}

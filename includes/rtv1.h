@@ -118,6 +118,7 @@ void		vector_normalize(t_vector *v);
 double		vector_dot(t_vector *a, t_vector *b);
 t_vector	*vector_sub(t_vector *a, t_vector *b);
 void		vector_sub_assoc(t_vector *vector, t_vector *a, t_vector *b);
+void		vector_mult(t_vector *vector, t_vector *a, double val);
 
 /*
 ** sphere.c
