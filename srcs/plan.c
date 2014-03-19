@@ -25,6 +25,7 @@ void		plan_new(t_vector *normal, int constante, int color)
 	plan->type = 'p';
 	plan->color = color;
 	plan->normal = normal;
+	vector_normalize(plan->normal);
 	plan->constante = constante;
 	plan->next = NULL;
 	if (data->plan)
