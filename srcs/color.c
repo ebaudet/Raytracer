@@ -17,7 +17,7 @@ int		color_speculaire(void *object, int color, t_data *d, t_vector *ray_dir, dou
 {
 	double		spec;
 	t_vector	light;
-	t_vector	reflect;
+	/*t_vector	reflect;*/
 	t_vector	normal;
 	t_vector	impact;
 
@@ -31,19 +31,17 @@ int		color_speculaire(void *object, int color, t_data *d, t_vector *ray_dir, dou
 	vector_normalize(&normal);
 
 	vector_sub_assoc(&light, &impact, d->light->position);
-
-	vector_mult(&light, &light, -1);
-
 	vector_normalize(&light);
-	vector_mult(&reflect, &normal, -2 * vector_dot(&light, &normal));
+
+		/*vector_mult(&reflect, &normal, -2 * vector_dot(&light, &normal));
 	vector_sub_assoc(&reflect, &light, &reflect);
-	vector_normalize(&reflect);
+	vector_normalize(&reflect);*/
 
 	/*vector_mult(&light, &light, -1);*/
 
-
-	if ((spec = vector_dot(&light, &reflect)) > 0.99)
-		color = color_lambert(color, pow(spec, 100));
+	spec = vector_dot(&light, &normal);
+	/*spec = vector_dot(&light, &reflect);*/
+	color = color_lambert(color, pow(spec, 100));
 	return (color);
 }
 
