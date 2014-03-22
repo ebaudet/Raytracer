@@ -6,7 +6,7 @@
 /*   By: ebaudet <ebaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/14 18:52:59 by ebaudet           #+#    #+#             */
-/*   Updated: 2014/02/14 18:52:59 by ebaudet          ###   ########.fr       */
+/*   Updated: 2014/03/22 01:54:50 by ebaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,16 @@ typedef struct		s_sphere
 	double			radius;
 	struct s_sphere	*next;
 }					t_sphere;
+
+typedef struct		s_cylinder
+{
+	char			type;
+	int				color;
+	t_vector		*position;
+	double			radius;
+	t_vector		*direction;
+	struct s_sphere	*next;
+}					t_cylinder;
 
 typedef struct		s_light
 {

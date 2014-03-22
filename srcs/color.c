@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ebaudet <ebaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/02/16 22:37:09 by ebaudet           #+#    #+#             */
-/*   Updated: 2014/02/16 22:37:09 by ebaudet          ###   ########.fr       */
+/*   Created: 2014/03/21 18:27:01 by ebaudet           #+#    #+#             */
+/*   Updated: 2014/03/22 01:21:24 by ebaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int		color_speculaire(void *object, int color, t_data *d, t_vector *ray_dir, dou
 {
 	double		spec;
 	t_vector	light;
-	/*t_vector	reflect;*/
+	t_vector	reflect;
 	t_vector	normal;
 	t_vector	impact;
 
@@ -33,14 +33,17 @@ int		color_speculaire(void *object, int color, t_data *d, t_vector *ray_dir, dou
 	vector_sub_assoc(&light, &impact, d->light->position);
 	vector_normalize(&light);
 
-		/*vector_mult(&reflect, &normal, -2 * vector_dot(&light, &normal));
+	vector_mult(&reflect, &normal, -2 * vector_dot(&light, &normal));
 	vector_sub_assoc(&reflect, &light, &reflect);
-	vector_normalize(&reflect);*/
+	vector_normalize(&reflect);
 
 	/*vector_mult(&light, &light, -1);*/
 
 	spec = vector_dot(&light, &normal);
-	/*spec = vector_dot(&light, &reflect);*/
+	/*if (spec > 0.1)
+	{
+		spec = vector_dot(&light, &reflect);
+	}*/
 	color = color_lambert(color, pow(spec, 100));
 	return (color);
 }
