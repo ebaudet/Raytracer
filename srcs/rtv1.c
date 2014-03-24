@@ -6,7 +6,7 @@
 /*   By: ebaudet <ebaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/14 18:53:48 by ebaudet           #+#    #+#             */
-/*   Updated: 2014/03/25 00:17:34 by ebaudet          ###   ########.fr       */
+/*   Updated: 2014/03/25 00:18:41 by ebaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	init_scene(void)
 
 	/*sphere_new(vector_new(180, 0, -1000), 50, 0xAA0022);
 	ft_parse_scene(data);
-	/* sphere_new(vector_new(180, 0, -1000), 50, 0xAA0022); */
+	 sphere_new(vector_new(180, 0, -1000), 50, 0xAA0022); */
 	/* sphere_new(vector_new(0, 50, -1500), 30, 0xCC2EFA); */
 	sphere_new(vector_new(0, -50, -700), 10, 0xFFBF00);
 	/* sphere_new(vector_new(50, 0, -800), 20, 0xC8FE2E); */
