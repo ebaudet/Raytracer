@@ -6,7 +6,7 @@
 /*   By: ebaudet <ebaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/14 18:53:48 by ebaudet           #+#    #+#             */
-/*   Updated: 2014/03/22 01:21:38 by ebaudet          ###   ########.fr       */
+/*   Updated: 2014/03/24 23:59:15 by gpetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,9 @@
 
 void	rtv1(void)
 {
+	/* t_data		*data; */
+
+/* 	data = data_init(); */
 	init_scene();
 	eb_mlx();
 }
@@ -27,20 +30,21 @@ void	init_scene(void)
 	t_data		*data;
 
 	data = data_init();
-	sphere_new(vector_new(180, 0, -1000), 50, 0xAA0022);
-	sphere_new(vector_new(0, 50, -1500), 30, 0xCC2EFA);
+	ft_parse_scene(data);
+	/* sphere_new(vector_new(180, 0, -1000), 50, 0xAA0022); */
+	/* sphere_new(vector_new(0, 50, -1500), 30, 0xCC2EFA); */
 	sphere_new(vector_new(0, -50, -700), 10, 0xFFBF00);
-	sphere_new(vector_new(50, 0, -800), 20, 0xC8FE2E);
-	sphere_new(vector_new(-150, 0, -900), 80, 0x2E9AFE);
-	
-	plan_new(vector_new(0, 1, 0), -100, 0xBDBDBD);
+	/* sphere_new(vector_new(50, 0, -800), 20, 0xC8FE2E); */
+	/* sphere_new(vector_new(-150, 0, -900), 80, 0x2E9AFE); */
+
+	/* plan_new(vector_new(0, 1, 0), -100, 0xBDBDBD); */
 	plan_new(vector_new(20, 0, 1), -400, 0x5882FA);
 	plan_new(vector_new(-20, 0, 1), -400, 0xF4FA58);
 
 	/*plan_new(vector_new(0, 0, 1), -5000, 0xF6E3CE);*/
 	/*plan_new(vector_new(4000, -2000, -5000), 4000, 0xBCF5A9);*/
 	/*plan_new(vector_new(0, 0, 10000), 0, 0xF6E3CE);*/
-	data->cam = vector_new(0, 0, -(WIDTH / (2 * tan(M_PI / 12))));
+	/* data->cam = vector_new(0, 0, -(WIDTH / (2 * tan(M_PI / 12)))); */
 	data->light	= light_new(vector_new(500, -1000, -4000), 0xFAFAFA);
 }
 
@@ -49,13 +53,15 @@ void	display_screen(t_img *img)
 	int			x;
 	int			y;
 	t_ray		*rayon;
+	t_data		*d;
 
+	d = data_init();
 	rayon = ray_new();
 	y = 0;
-	while (y < HEIGHT)
+	while (y < d->win_size_y)
 	{
 		x = 0;
-		while (x < WIDTH)
+		while (x < d->win_size_x)
 		{
 			color_pixel(img, x, y, rayon);
 			x++;
@@ -74,7 +80,7 @@ void	color_pixel(t_img *img, int x, int y, t_ray *rayon)
 	int			color;
 
 	d = data_init();
-	vector_set(&b, x - (WIDTH / 2), y - (HEIGHT / 2), 0);
+	vector_set(&b, x - (d->win_size_x / 2), y - (d->win_size_y / 2), 0);
 	vector_set(&ray_dir, b.x - d->cam->x, b.y - d->cam->y, b.z - d->cam->z);
 	vector_normalize(&ray_dir);
 	vector_set(rayon->o, d->cam->x, d->cam->y, d->cam->z);

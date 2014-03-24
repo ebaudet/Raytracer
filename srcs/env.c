@@ -6,7 +6,7 @@
 /*   By: ebaudet <ebaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/14 22:14:22 by ebaudet           #+#    #+#             */
-/*   Updated: 2014/02/14 22:14:22 by ebaudet          ###   ########.fr       */
+/*   Updated: 2014/03/24 21:20:10 by gpetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,15 @@
 t_win	*env_init(void)
 {
 	static t_win	*win = NULL;
+	t_data		*d;
 
+	d = data_init();
 	if (win == NULL)
 	{
 		if (!(win = (t_win *)malloc(sizeof(t_win))))
 			ft_error("erreur malloc");
 		win->mlx = mlx_init();
-		win->win = mlx_new_window(win->mlx, WIDTH, HEIGHT, "RTV1");
+		win->win = mlx_new_window(win->mlx, d->win_size_x, d->win_size_y, d->scene_name);
 		win->img = img_init();
 	}
 	return (win);
