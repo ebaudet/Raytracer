@@ -6,7 +6,7 @@
 /*   By: ebaudet <ebaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/22 01:19:35 by ebaudet           #+#    #+#             */
-/*   Updated: 2014/03/22 03:37:04 by ebaudet          ###   ########.fr       */
+/*   Updated: 2014/03/24 18:22:58 by ebaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ void		cylinder_new(t_vector *pos, double radius, int color, t_vector *dir)
 		ft_error("error malloc");
 	cylinder->type = 'c';
 	cylinder->color = color;
-	cylinder->position = pos;
+	cylinder->pos = pos;
 	cylinder->radius = radius;
-	cylinder->direction = dir;
+	cylinder->dir = dir;
 	cylinder->next = NULL;
 	if (data->cylinder)
 	{
@@ -52,6 +52,27 @@ void		cylinder_del(t_cylinder *cylinder)
 
 int			intersection_cylinder(t_cylinder *cylinder, t_ray *ray, double *t)
 {
+	double	a;
+	double	b;
+	double	c;
+	double	d;
+	double	rslt;
+
+	a = pow(ray->d->x, 2) + pow(ray->d->z, 2);
+	b = (2 * (ray->d->x * (ray->o->x - cylinder->pos->x)))
+		+ (2 * (ray->d->z * (ray->o->z - cylinder->pos->z)));
+	c = pow(ray->o->x - cylinder->pos->x, 2)
+		+ pow(ray->o->z - cylinder->pos->z, 2) - pow(cylinder->radius, 2);
+	d = b * b - 4 * a * c;
+	if (d > 0)
+	{
+		
+	}
+}
+
+/*
+int			intersection_cylinder(t_cylinder *cylinder, t_ray *ray, double *t)
+{
 	t_vector	*dist;
 	t_vector	*a;
 	double		w;
@@ -63,3 +84,4 @@ int			intersection_cylinder(t_cylinder *cylinder, t_ray *ray, double *t)
 		a = vector_mult()
 	}
 }
+*/

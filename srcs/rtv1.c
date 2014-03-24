@@ -6,7 +6,7 @@
 /*   By: ebaudet <ebaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/14 18:53:48 by ebaudet           #+#    #+#             */
-/*   Updated: 2014/03/22 01:21:38 by ebaudet          ###   ########.fr       */
+/*   Updated: 2014/03/24 17:57:02 by ebaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void	init_scene(void)
 	plan_new(vector_new(0, 1, 0), -100, 0xBDBDBD);
 	plan_new(vector_new(20, 0, 1), -400, 0x5882FA);
 	plan_new(vector_new(-20, 0, 1), -400, 0xF4FA58);
+	plan_new(vector_new(0, 0, 1), -100, 0xFFFFFF);
 
 	/*plan_new(vector_new(0, 0, 1), -5000, 0xF6E3CE);*/
 	/*plan_new(vector_new(4000, -2000, -5000), 4000, 0xBCF5A9);*/

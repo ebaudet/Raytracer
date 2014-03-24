@@ -6,7 +6,7 @@
 /*   By: ebaudet <ebaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/14 21:19:42 by ebaudet           #+#    #+#             */
-/*   Updated: 2014/03/22 01:52:58 by ebaudet          ###   ########.fr       */
+/*   Updated: 2014/03/24 18:14:36 by ebaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void		sphere_new(t_vector *position, double radius, int color)
 		ft_error("error malloc");
 	sphere->type = 's';
 	sphere->color = color;
-	sphere->position = position;
+	sphere->pos = position;
 	sphere->radius = radius;
 	sphere->next = NULL;
 	if (data->sphere)
@@ -43,7 +43,7 @@ void		sphere_del(t_sphere *sphere)
 {
 	if (sphere)
 	{
-		vector_del(sphere->position);
+		vector_del(sphere->pos);
 		free(sphere);
 		sphere = NULL;
 	}
@@ -57,7 +57,7 @@ int			intersection_sphere(t_sphere *sphere, t_ray *ray, double *t)
 	double		t0;
 	double		t1;
 
-	dist = vector_sub(sphere->position, ray->o);
+	dist = vector_sub(sphere->pos, ray->o);
 	b = 2 * vector_dot(ray->d, dist);
 	delta = vector_dot(dist, dist) - pow(sphere->radius, 2);
 	delta = pow(b, 2) - 4 * delta;

@@ -6,7 +6,7 @@
 /*   By: ebaudet <ebaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/21 18:27:01 by ebaudet           #+#    #+#             */
-/*   Updated: 2014/03/22 01:21:24 by ebaudet          ###   ########.fr       */
+/*   Updated: 2014/03/24 17:55:37 by ebaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,11 @@ int		color_speculaire(void *object, int color, t_data *d, t_vector *ray_dir, dou
 
 	/*vector_mult(&light, &light, -1);*/
 
-	spec = vector_dot(&light, &normal);
+	/*spec = vector_dot(&light, &normal);*/
 	/*if (spec > 0.1)
-	{
+	{*/
 		spec = vector_dot(&light, &reflect);
-	}*/
+/*	}*/
 	color = color_lambert(color, pow(spec, 100));
 	return (color);
 }
