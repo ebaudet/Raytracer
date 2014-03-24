@@ -6,7 +6,7 @@
 /*   By: ebaudet <ebaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/14 18:52:59 by ebaudet           #+#    #+#             */
-/*   Updated: 2014/03/24 18:13:47 by ebaudet          ###   ########.fr       */
+/*   Updated: 2014/03/24 20:13:22 by ebaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,15 +57,15 @@ typedef struct		s_sphere
 	struct s_sphere	*next;
 }					t_sphere;
 
-typedef struct		s_cylinder
+typedef struct		s_cylind
 {
 	char			type;
 	int				color;
 	t_vector		*pos;
 	double			radius;
 	t_vector		*dir;
-	struct s_sphere	*next;
-}					t_cylinder;
+	struct s_cylind	*next;
+}					t_cylind;
 
 typedef struct		s_light
 {
@@ -94,6 +94,7 @@ typedef struct		s_data
 {
 	t_sphere		*sphere;
 	t_plan			*plan;
+	t_cylind		*cylinder;
 	t_vector		*cam;
 	t_light			*light;
 }					t_data;
@@ -122,6 +123,11 @@ void		vector_set_copy(t_vector *vector, t_vector *copy);
 t_vector	*vector_copy(t_vector *a);
 
 /*
+** normal.c
+*/
+void		vect_normal(t_vector *normal, t_vector *impact, void *object);
+
+/*
 ** vector_calculation.c
 */
 void		vector_normalize(t_vector *v);
@@ -129,6 +135,7 @@ double		vector_dot(t_vector *a, t_vector *b);
 t_vector	*vector_sub(t_vector *a, t_vector *b);
 void		vector_sub_assoc(t_vector *vector, t_vector *a, t_vector *b);
 void		vector_mult(t_vector *vector, t_vector *a, double val);
+void		vector_add(t_vector *vector, t_vector *a, t_vector *b);
 
 /*
 ** sphere.c
@@ -143,6 +150,14 @@ int			intersection_sphere(t_sphere *sphere, t_ray *ray, double *t);
 void		plan_new(t_vector *normal, int constante, int color);
 void		plan_del(t_plan *plan);
 int			intersection_plan(t_plan *plan, t_ray *ray, double *t);
+
+/*
+** cylinder.c
+*/
+void		cylinder_new(t_vector *pos, double radius, int color
+				, t_vector *dir);
+void		cylinder_del(t_cylind *cylinder);
+int			intersection_cylinder(t_cylind *cylinder, t_ray *ray, double *t);
 
 /*
 ** light.c

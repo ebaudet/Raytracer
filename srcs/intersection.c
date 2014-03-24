@@ -6,7 +6,7 @@
 /*   By: ebaudet <ebaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/17 19:14:17 by ebaudet           #+#    #+#             */
-/*   Updated: 2014/03/17 19:47:07 by ebaudet          ###   ########.fr       */
+/*   Updated: 2014/03/24 19:31:48 by ebaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,22 @@ static t_plan		*plan_intersection(t_data *data, t_ray *ray, double *dist)
 	return (current);
 }
 
+static t_cylind		*cylind_intersection(t_data *data, t_ray *ray, double *dist)
+{
+	t_cylind	*tmp;
+	t_cylind	*current;
+
+	current = NULL;
+	tmp = data->cylinder;
+	while (tmp)
+	{
+		if (!intersection_cylinder(tmp, ray, dist))
+			current = tmp;
+		tmp = tmp->next;
+	}
+	return (current);
+}
+
 void				*intersection(t_data *data, t_ray *ray, double *dist)
 {
 	void	*object;
@@ -51,6 +67,8 @@ void				*intersection(t_data *data, t_ray *ray, double *dist)
 
 	object = sphere_intersection(data, ray, dist);
 	if ((tmp = plan_intersection(data, ray, dist)) != NULL)
+		object = tmp;
+	if ((tmp = cylind_intersection(data, ray, dist)) != NULL)
 		object = tmp;
 	return (object);
 }

@@ -6,7 +6,7 @@
 /*   By: ebaudet <ebaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/16 22:19:34 by ebaudet           #+#    #+#             */
-/*   Updated: 2014/02/16 22:19:34 by ebaudet          ###   ########.fr       */
+/*   Updated: 2014/03/24 19:39:30 by ebaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,4 +52,11 @@ void		vector_mult(t_vector *vector, t_vector *a, double val)
 	vector->x = a->x * val;
 	vector->y = a->y * val;
 	vector->z = a->z * val;
+}
+
+void		vector_add(t_vector *vector, t_vector *a, t_vector *b)
+{
+	vector->x = a->x + b->x;
+	vector->y = a->y + b->y;
+	vector->z = a->z + b->z;
 }

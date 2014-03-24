@@ -6,7 +6,7 @@
 /*   By: ebaudet <ebaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/22 01:19:35 by ebaudet           #+#    #+#             */
-/*   Updated: 2014/03/24 18:22:58 by ebaudet          ###   ########.fr       */
+/*   Updated: 2014/03/24 19:32:59 by ebaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,11 @@
 void		cylinder_new(t_vector *pos, double radius, int color, t_vector *dir)
 {
 	t_data		*data;
-	t_cylinder	*cylinder;
-	t_cylinder	*tmp;
+	t_cylind	*cylinder;
+	t_cylind	*tmp;
 
 	data = data_init();
-	if ((cylinder = (t_cylinder *)malloc(sizeof(t_cylinder))) == NULL)
+	if ((cylinder = (t_cylind *)malloc(sizeof(t_cylind))) == NULL)
 		ft_error("error malloc");
 	cylinder->type = 'c';
 	cylinder->color = color;
@@ -40,17 +40,17 @@ void		cylinder_new(t_vector *pos, double radius, int color, t_vector *dir)
 		data->cylinder = cylinder;
 }
 
-void		cylinder_del(t_cylinder *cylinder)
+void		cylinder_del(t_cylind *cylinder)
 {
 	if (cylinder)
 	{
-		vector_del(cylinder->position);
+		vector_del(cylinder->pos);
 		free(cylinder);
 		cylinder = NULL;
 	}
 }
 
-int			intersection_cylinder(t_cylinder *cylinder, t_ray *ray, double *t)
+int			intersection_cylinder(t_cylind *cylinder, t_ray *ray, double *t)
 {
 	double	a;
 	double	b;
@@ -66,12 +66,21 @@ int			intersection_cylinder(t_cylinder *cylinder, t_ray *ray, double *t)
 	d = b * b - 4 * a * c;
 	if (d > 0)
 	{
-		
+		if ((((-b - sqrt(d)) / (2 * a)) - 0.000001) > 0)
+			rslt = (-b - sqrt(d)) / (2 * a) - 0.000001;
+		else
+			rslt = (-b + sqrt(d)) / (2 * a) - 0.000001;
+		if (rslt < *t)
+		{
+			*t = rslt;
+			return (0);
+		}
 	}
+	return (-1);
 }
 
 /*
-int			intersection_cylinder(t_cylinder *cylinder, t_ray *ray, double *t)
+int			intersection_cylinder(t_cylind *cylinder, t_ray *ray, double *t)
 {
 	t_vector	*dist;
 	t_vector	*a;
