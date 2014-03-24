@@ -6,7 +6,7 @@
 /*   By: ebaudet <ebaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/14 22:07:33 by ebaudet           #+#    #+#             */
-/*   Updated: 2014/02/14 22:07:33 by ebaudet          ###   ########.fr       */
+/*   Updated: 2014/03/24 21:24:26 by gpetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,12 @@ t_img		*img_init(void)
 {
 	t_win	*win;
 	t_img	*img;
+	t_data	*data;
 
+	data = data_init();
 	win = env_init();
 	img = (t_img *)malloc(sizeof(t_img));
-	img->img = mlx_new_image(win->mlx, WIDTH, HEIGHT);
+	img->img = mlx_new_image(win->mlx, data->win_size_x, data->win_size_y);
 	img->data = mlx_get_data_addr(img->img, &img->bpp, &img->size_line
 		, &img->endian);
 	return (img);

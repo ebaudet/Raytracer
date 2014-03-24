@@ -6,7 +6,7 @@
 /*   By: ebaudet <ebaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/14 18:52:59 by ebaudet           #+#    #+#             */
-/*   Updated: 2014/03/24 20:13:22 by ebaudet          ###   ########.fr       */
+/*   Updated: 2014/03/25 00:12:05 by gpetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include "libft.h"
 
 # define WIDTH		1000
-# define HEIGHT		1000
+# define HEIGHT		500
 # define KEY_ESC	65307
 
 typedef struct		s_struct
@@ -97,6 +97,12 @@ typedef struct		s_data
 	t_cylind		*cylinder;
 	t_vector		*cam;
 	t_light			*light;
+	char			*scene_name;
+	double			x;
+	double			y;
+	double			z;
+	int				win_size_x;
+	int				win_size_y;
 }					t_data;
 
 /*
@@ -209,5 +215,13 @@ int			color_norm(int red, int green, int blue);
 */
 void		*intersection(t_data *data, t_ray *ray, double *dist);
 char		type_object(void *ptr);
+
+/*
+**	parse.c
+*/
+
+double		ft_atod(char **str);
+void		ft_parse_scene(t_data *data);
+void		ft_scene_init(t_data *data, char **line, int fd);
 
 #endif /* !RTV1_H */
