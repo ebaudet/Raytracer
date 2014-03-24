@@ -6,7 +6,7 @@
 #    By: ebaudet <ebaudet@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/02/15 00:09:57 by ebaudet           #+#    #+#              #
-#    Updated: 2014/03/17 18:17:24 by ebaudet          ###   ########.fr        #
+#    Updated: 2014/03/24 19:05:23 by gpetrov          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,22 +24,26 @@ CC		= cc
 all: $(NAME)
 
 $(NAME): libft_comp create_fold_obj $(OBJS)
-	$(CC) $(FLAGS) $(SRCS) -o $(NAME) $(INC) $(LIB) $(LIBMLX)
+	@$(CC) $(FLAGS) $(SRCS) -o $(NAME) $(INC) $(LIB) $(LIBMLX)
+	@echo "\n > \033[36m$(NAME)\033[m project compilation [\033[32mDONE\033[m]\n"
 
 .obj/%.o: srcs/%.c
-	$(CC) -c $< -o $@ $(FLAGS) $(INC)
+	@$(CC) -c $< -o $@ $(FLAGS) $(INC)
+	@echo -n .
 
 libft_comp:
-	make -C libft
+	@make -C libft
 
 create_fold_obj:
-	mkdir -p .obj
+	@mkdir -p .obj
 
 clean:
-	rm -rf .obj
+	@rm -rf .obj
 
 fclean: clean
-	rm -f $(NAME)
+	@make fclean -C libft
+	@rm -f $(NAME)
+	@echo "fclean : [\033[32mDONE\033[m]"
 
 re: fclean all
 

@@ -6,7 +6,7 @@
 #    By: ebaudet <ebaudet@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2013/11/21 12:00:46 by ebaudet           #+#    #+#              #
-#    Updated: 2014/02/08 20:18:24 by ebaudet          ###   ########.fr        #
+#    Updated: 2014/03/24 19:05:02 by gpetrov          ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -33,19 +33,21 @@ AR		= ar rc
 RANLIB	= ranlib
 
 all: $(NAME)
-	
+
 $(NAME): $(OBJS)
-	$(AR) $(NAME) $(OBJS)
-	$(RANLIB) $(NAME)
+	@$(AR) $(NAME) $(OBJS)
+	@$(RANLIB) $(NAME)
+	@echo "\n\n > Compiling libft [\033[32mDONE\033[m]"
 
 %.o: %.c
-	$(CC) -c $< -o $@ $(FLAGS) -I $(INC)
+	@$(CC) -c $< -o $@ $(FLAGS) -I $(INC)
+	@echo -n .
 
 clean:
-	rm -f $(OBJS)
+	@rm -f $(OBJS)
 
 fclean: clean
-	rm -f $(NAME)
+	@rm -f $(NAME)
 
 re: fclean all
 
