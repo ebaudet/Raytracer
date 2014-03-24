@@ -6,7 +6,7 @@
 /*   By: ebaudet <ebaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/21 18:27:01 by ebaudet           #+#    #+#             */
-/*   Updated: 2014/03/24 20:21:55 by ebaudet          ###   ########.fr       */
+/*   Updated: 2014/03/25 00:15:32 by ebaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,10 @@ int		color_speculaire(void *object, int color, t_data *d, t_vector *ray_dir, dou
 
 	/*vector_mult(&light, &light, -1);*/
 
-	/*spec = vector_dot(&light, &normal);*/
+	spec = vector_dot(&light, &normal);
 	/*if (spec > 0.1)
 	{*/
-		spec = vector_dot(&light, &reflect);
+		/*spec = vector_dot(&light, &reflect);*/
 /*	}*/
 	color = color_lambert(color, pow(spec, 100));
 	return (color);
@@ -59,9 +59,10 @@ int		color_find(void *object, t_data *d, t_vector *ray_dir, double coef)
 	vector_sub_assoc(&light, d->light->pos, &impact);
 	vector_normalize(&light);
 	lambert = vector_dot(&light, &normal);
+	/*lambert = 1 * pow((1 - (coef / 200000)), 150);*/
+
 	color = ((t_struct *)object)->color;
 	color = color_lambert(((t_struct *)object)->color, lambert);
-	color = color_speculaire(object, color, d, ray_dir, coef);
 	return (color);
 }
 
