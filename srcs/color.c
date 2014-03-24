@@ -6,7 +6,7 @@
 /*   By: ebaudet <ebaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/21 18:27:01 by ebaudet           #+#    #+#             */
-/*   Updated: 2014/03/22 01:21:24 by ebaudet          ###   ########.fr       */
+/*   Updated: 2014/03/24 20:21:55 by ebaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,9 @@ int		color_speculaire(void *object, int color, t_data *d, t_vector *ray_dir, dou
 	impact.x = d->cam->x + coef * ray_dir->x;
 	impact.y = d->cam->y + coef * ray_dir->y;
 	impact.z = d->cam->z + coef * ray_dir->z;
-	if (type_object(object) == 's')
-		vector_sub_assoc(&normal, &impact, ((t_sphere *)object)->position);
-	if (type_object(object) == 'p')
-		vector_set_copy(&normal, ((t_plan *)object)->normal);
-	vector_normalize(&normal);
+	vect_normal(&normal, &impact, object);
 
-	vector_sub_assoc(&light, &impact, d->light->position);
+	vector_sub_assoc(&light, &impact, d->light->pos);
 	vector_normalize(&light);
 
 	vector_mult(&reflect, &normal, -2 * vector_dot(&light, &normal));
@@ -39,11 +35,11 @@ int		color_speculaire(void *object, int color, t_data *d, t_vector *ray_dir, dou
 
 	/*vector_mult(&light, &light, -1);*/
 
-	spec = vector_dot(&light, &normal);
+	/*spec = vector_dot(&light, &normal);*/
 	/*if (spec > 0.1)
-	{
+	{*/
 		spec = vector_dot(&light, &reflect);
-	}*/
+/*	}*/
 	color = color_lambert(color, pow(spec, 100));
 	return (color);
 }
@@ -59,13 +55,9 @@ int		color_find(void *object, t_data *d, t_vector *ray_dir, double coef)
 	impact.x = d->cam->x + coef * ray_dir->x;
 	impact.y = d->cam->y + coef * ray_dir->y;
 	impact.z = d->cam->z + coef * ray_dir->z;
-	if (type_object(object) == 's')
-		vector_sub_assoc(&normal, &impact, ((t_sphere *)object)->position);
-	if (type_object(object) == 'p')
-		vector_set_copy(&normal, ((t_plan *)object)->normal);
-	vector_sub_assoc(&light, d->light->position, &impact);
+	vect_normal(&normal, &impact, object);
+	vector_sub_assoc(&light, d->light->pos, &impact);
 	vector_normalize(&light);
-	vector_normalize(&normal);
 	lambert = vector_dot(&light, &normal);
 	color = ((t_struct *)object)->color;
 	color = color_lambert(((t_struct *)object)->color, lambert);
