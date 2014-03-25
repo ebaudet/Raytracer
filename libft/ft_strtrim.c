@@ -6,7 +6,7 @@
 /*   By: ebaudet <ebaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/11/19 16:54:42 by ebaudet           #+#    #+#             */
-/*   Updated: 2014/01/04 18:46:08 by ebaudet          ###   ########.fr       */
+/*   Updated: 2014/03/25 21:45:06 by ebaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 static int	ft_is_space(char c)
 {
 	return (c == ' ' || c == '\n' || c == '\t' || c == '\r' || c == '\f'
-		|| c == '\v');
+	|| c == '\v');
 }
 
 char		*ft_strtrim(char const *s)
@@ -29,7 +29,7 @@ char		*ft_strtrim(char const *s)
 	start = 0;
 	while (s && ft_is_space(s[start]))
 		start++;
-	end	= ft_strlen(s) - 1;
+	end = ft_strlen(s) - 1;
 	res = (char *)malloc((end - start + 1) * sizeof(*res));
 	while (s && ft_is_space(s[end]))
 		end--;

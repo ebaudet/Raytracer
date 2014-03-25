@@ -6,7 +6,7 @@
 /*   By: ebaudet <ebaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/11/19 16:54:29 by ebaudet           #+#    #+#             */
-/*   Updated: 2013/12/04 17:59:53 by ebaudet          ###   ########.fr       */
+/*   Updated: 2014/03/25 21:43:55 by ebaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char	*ft_strsub(char const *s, unsigned int start, size_t len)
 		i = 0;
 		while (i < len)
 		{
-			res[i] = s[start + (unsigned int) i];
+			res[i] = s[start + (unsigned int)i];
 			i++;
 		}
 		res[i] = 0;

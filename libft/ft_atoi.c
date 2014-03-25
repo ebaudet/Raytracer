@@ -6,7 +6,7 @@
 /*   By: ebaudet <ebaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/11/19 16:39:09 by ebaudet           #+#    #+#             */
-/*   Updated: 2014/01/04 18:34:58 by ebaudet          ###   ########.fr       */
+/*   Updated: 2014/03/25 21:43:17 by ebaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static int	ft_is_op(char c)
 static int	ft_is_space(char c)
 {
 	return (c == ' ' || c == '\n' || c == '\t' || c == '\r' || c == '\f'
-		|| c == '\v');
+	|| c == '\v');
 }
 
 int			ft_atoi(const char *str)
