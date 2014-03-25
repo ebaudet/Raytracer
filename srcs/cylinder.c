@@ -6,7 +6,7 @@
 /*   By: ebaudet <ebaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/22 01:19:35 by ebaudet           #+#    #+#             */
-/*   Updated: 2014/03/24 19:32:59 by ebaudet          ###   ########.fr       */
+/*   Updated: 2014/03/25 21:41:24 by ebaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,19 +78,3 @@ int			intersection_cylinder(t_cylind *cylinder, t_ray *ray, double *t)
 	}
 	return (-1);
 }
-
-/*
-int			intersection_cylinder(t_cylind *cylinder, t_ray *ray, double *t)
-{
-	t_vector	*dist;
-	t_vector	*a;
-	double		w;
-
-	dist = vector_sub(cylinder->position, ray->o);
-	w = vector_dot(ray->d, cylinder->direction);
-	if (pow(b, 2) == 0)
-	{
-		a = vector_mult()
-	}
-}
-*/
