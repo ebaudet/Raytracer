@@ -1,0 +1,59 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_set_light.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gpetrov <gpetrov@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2014/03/25 17:42:56 by gpetrov           #+#    #+#             */
+/*   Updated: 2014/03/25 21:01:56 by gpetrov          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "rtv1.h"
+
+static void		ft_set_light_origin(t_data *data, char **line, int fd)
+{
+	get_next_line(fd, line);
+	if (ft_check_if_nbr(*line) == -1)
+		ft_error("[ERROR SCENE] - Light's origin x is not a digit");
+	data->x = ft_atod(line);
+	get_next_line(fd, line);
+	if (ft_check_if_nbr(*line) == -1)
+		ft_error("[ERROR SCENE] - Light's origin y is not a digit");
+	data->y = ft_atod(line);
+	get_next_line(fd, line);
+	if (ft_check_if_nbr(*line) == -1)
+		ft_error("[ERROR SCENE] - Light's origin z is not a digit");
+	data->z = ft_atod(line);
+}
+
+static void		ft_set_light_color(t_data *data, char **line, int fd)
+{
+	get_next_line(fd, line);
+	if (ft_check_if_nbr(*line) == -1)
+		ft_error("[ERROR SCENE] - Light's color RED is not a digit");
+	data->x2 = (double)ft_atoi(*line);
+	get_next_line(fd, line);
+	if (ft_check_if_nbr(*line) == -1)
+		ft_error("[ERROR SCENE] - Light's color GREEN is not a digit");
+	data->y2 = (double)ft_atoi(*line);
+	get_next_line(fd, line);
+	if (ft_check_if_nbr(*line) == -1)
+		ft_error("[ERROR SCENE] - Light's color BLUE is not a digit");
+	data->z2 = (double)ft_atoi(*line);
+}
+
+void			ft_set_light(t_data *data, char **line, int fd)
+{
+	while (ft_strcmp("#end_object", *line) != 0)
+	{
+		if (ft_strcmp("#origin", *line) == 0)
+			ft_set_light_origin(data, line, fd);
+		else if (ft_strcmp("#color", *line) == 0)
+			ft_set_light_color(data, line, fd);
+		get_next_line(fd, line);
+	}
+	light_new(vector_new(data->x, data->y, data->z)
+	, color_norm(data->x2, data->y2, data->z2));
+}
