@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gpetrov <gpetrov@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ebaudet <ebaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/25 15:21:33 by gpetrov           #+#    #+#             */
-/*   Updated: 2014/03/25 15:57:40 by gpetrov          ###   ########.fr       */
+/*   Updated: 2014/03/25 21:36:13 by ebaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ double		ft_atod(char **str)
 	return (value * sign);
 }
 
-int		ft_check_if_nbr(char *str)
+int			ft_check_if_nbr(char *str)
 {
 	int		i;
 	int		dot;

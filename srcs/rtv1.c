@@ -6,7 +6,7 @@
 /*   By: ebaudet <ebaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/14 18:53:48 by ebaudet           #+#    #+#             */
-/*   Updated: 2014/03/25 20:52:19 by ebaudet          ###   ########.fr       */
+/*   Updated: 2014/03/25 21:35:37 by ebaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,6 @@
 
 void	rtv1(void)
 {
-	/* t_data		*data; */
-
-/* 	data = data_init(); */
 	init_scene();
 	eb_mlx();
 }
@@ -30,34 +27,7 @@ void	init_scene(void)
 	t_data		*data;
 
 	data = data_init();
-
 	ft_parse_scene(data);
-	/* sphere_new(vector_new(180, 0, -1000), 50, 0xAA0022); */
-	/* sphere_new(vector_new(0, 50, -1500), 30, 0xCC2EFA); */
-	/* sphere_new(vector_new(0, -50, -700), 10, 0xFFBF00); */
-	/* sphere_new(vector_new(50, 0, -800), 20, 0xC8FE2E); */
-	/* sphere_new(vector_new(-150, 0, -900), 80, 0x2E9AFE); */
-
-	/* plan_new(vector_new(0, 1, 0), -100, 0xBDBDBD); */
-/*
-	sphere_new(vector_new(180, 0, -1000), 50, 0xAA0022);
-	sphere_new(vector_new(0, 50, -1500), 30, 0xCC2EFA);
-	sphere_new(vector_new(0, -50, -700), 10, 0xFFBF00);
-	sphere_new(vector_new(50, 0, -800), 20, 0xC8FE2E);
-	sphere_new(vector_new(-150, 0, -900), 80, 0x2E9AFE);
-*/
-	/*plan_new(vector_new(0, 1, 0), -100, 0xBDBDBD);
-	plan_new(vector_new(20, 0, 1), -400, 0x5882FA);
-	plan_new(vector_new(-20, 0, 1), -400, 0xF4FA58);*/
-	/*plan_new(vector_new(0, 0, 1), -100, 0xFFFFFF);*/
-
-	/* cylinder_new(vector_new(-200, 500, -500), 50, 0xAA0022, vector_new(0, 0, 1)); */
-
-	/*plan_new(vector_new(0, 0, 1), -5000, 0xF6E3CE);*/
-	/*plan_new(vector_new(4000, -2000, -5000), 4000, 0xBCF5A9);*/
-	/*plan_new(vector_new(0, 0, 10000), 0, 0xF6E3CE);*/
-	/* data->cam = vector_new(0, 0, -(WIDTH / (2 * tan(M_PI / 12)))); */
-	/* light_new(vector_new(500, -1000, -4000), 0xFAFAFA); */
 }
 
 void	display_screen(t_img *img)
@@ -99,8 +69,6 @@ void	color_pixel(t_img *img, int x, int y, t_ray *rayon)
 	vector_set(rayon->d, ray_dir.x, ray_dir.y, ray_dir.z);
 	vector_normalize(rayon->d);
 	coef = 200000;
-
-	/* calcul de l'intersection avec un objet */
 	inter = intersection(d, rayon, &coef);
 	if (inter != NULL && coef < 200000)
 	{
