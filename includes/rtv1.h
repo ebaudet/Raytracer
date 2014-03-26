@@ -39,6 +39,16 @@ typedef struct		s_ray
 	t_vector		*d;
 }					t_ray;
 
+typedef struct 		s_cone
+{
+	char			type;
+	int 			color;
+	t_vector 		*pos;
+	double			radius;
+	t_vector		*dir;
+	struct s_cone 	*next;
+}					t_cone;
+
 typedef struct		s_plan
 {
 	char			type;
@@ -96,6 +106,7 @@ typedef struct		s_data
 	t_sphere		*sphere;
 	t_plan			*plan;
 	t_cylind		*cylinder;
+	t_cone			*cone;
 	t_vector		*cam;
 	t_light			*light;
 	char			*scene_name;
@@ -171,6 +182,14 @@ void		cylinder_new(t_vector *pos, double radius, int color
 				, t_vector *dir);
 void		cylinder_del(t_cylind *cylinder);
 int			intersection_cylinder(t_cylind *cylinder, t_ray *ray, double *t);
+
+/*
+**	cone.c
+*/
+
+void		cone_new(t_vector *pos, double radius, int color, t_vector *dir);
+void		cone_del(t_cone *cone);
+int 		intersection_cone(t_cone *cone, t_ray *ray, double *t);
 
 /*
 ** light.c

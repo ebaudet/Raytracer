@@ -14,7 +14,7 @@ NAME	= RT
 FILES	= env.c error.c image.c main.c rtv1.c sphere.c vector.c ray.c hook.c \
 		data.c vector_calculation.c color.c light.c intersection.c plan.c \
 		parse.c cylinder.c normal.c tools.c ft_scene_init.c ft_set_sphere.c \
-		ft_set_plan.c ft_set_light.c ft_set_cylinder.c
+		ft_set_plan.c ft_set_light.c ft_set_cylinder.c cone.c
 SRCS	= $(addprefix srcs/, $(FILES))
 OBJS	= $(SRCS:srcs/%.c=.obj/%.o)
 INC		= -I includes -I libft/includes

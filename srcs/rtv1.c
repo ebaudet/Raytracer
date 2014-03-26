@@ -28,6 +28,9 @@ void	init_scene(void)
 
 	data = data_init();
 	ft_parse_scene(data);
+	cone_new(vector_new(-100, 0, -500), 0.1
+	, color_norm(200, 200, 200)
+	, vector_new(0, 0, 1));
 }
 
 void	display_screen(t_img *img)

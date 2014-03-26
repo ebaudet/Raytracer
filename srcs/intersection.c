@@ -60,6 +60,22 @@ static t_cylind		*cylind_intersection(t_data *data, t_ray *ray, double *dist)
 	return (current);
 }
 
+static t_cone		*cone_intersection(t_data *data, t_ray *ray, double *dist)
+{
+	t_cone		*tmp;
+	t_cone		*current;
+
+	current = NULL;
+	tmp = data->cone;
+	while (tmp)
+	{
+		if (!intersection_cone(tmp, ray, dist))
+			current = tmp;
+		tmp = tmp->next;
+	}
+	return (current);
+}
+
 void				*intersection(t_data *data, t_ray *ray, double *dist)
 {
 	void	*object;
@@ -69,6 +85,8 @@ void				*intersection(t_data *data, t_ray *ray, double *dist)
 	if ((tmp = plan_intersection(data, ray, dist)) != NULL)
 		object = tmp;
 	if ((tmp = cylind_intersection(data, ray, dist)) != NULL)
+		object = tmp;
+	if ((tmp = cone_intersection(data, ray, dist)) != NULL)
 		object = tmp;
 	return (object);
 }
