@@ -6,7 +6,7 @@
 /*   By: ebaudet <ebaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/21 18:27:01 by ebaudet           #+#    #+#             */
-/*   Updated: 2014/03/26 18:29:56 by ebaudet          ###   ########.fr       */
+/*   Updated: 2014/03/26 19:32:57 by ebaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int		get_color(void *object)
 	int		color;
 
 	color = ((t_struct *)object)->color;
-	color = color_shadow(color, 0.5);
+	color = color_shadow(color, 0.2);
 	return (color);
 }
 
@@ -73,19 +73,20 @@ int		color_find(void *object, t_vector *ray_dir, double coef)
 	int			color;
 	t_vector	impact;
 	double		dist;
-	t_ray		ray_light;
+	t_ray		*ray_light;
 
 	color = get_color(object);
 	light = data_init()->light;
+	ray_light = ray_new();
 	calcul_impact(&impact, ray_dir, coef);
-	dist = sqrt(vector_dot(ray_dir, &impact));
-	ray_light.o = &impact;
-	ray_light.d = vector_sub(&impact, light->pos);
-	vector_normalize(ray_light.d);
+	vector_set_copy(ray_light->o, &impact);
 	/*color = color_mult(color, pow((1 - (coef / 200000)), 150));*/
 	while (light)
 	{
-		if (!intersection(data_init(), &ray_light, &dist))
+		dist = dist_ab(light->pos, &impact);
+		vector_sub_assoc(ray_light->d, light->pos, &impact);
+		vector_normalize(ray_light->d);
+		if (!intersection(data_init(), ray_light, &dist))
 		{
 			/*color = color_light(color_lambert(object, light, &impact, get_color(object)), color);*/
 			color = color_lambert(object, light, &impact, color);
@@ -142,7 +143,7 @@ int		color_mult(int color, double mult)
 	int		green;
 	int		blue;
 
-	/*mult = (mult < 0 ? 0 : mult);*/
+	mult = (mult < 0 ? 0 : mult);
 	red = (color >> 16) % 256;
 	green = (color >> 8) % 256;
 	blue = color % 256;

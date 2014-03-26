@@ -6,7 +6,7 @@
 /*   By: ebaudet <ebaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/14 18:52:59 by ebaudet           #+#    #+#             */
-/*   Updated: 2014/03/26 18:02:17 by gpetrov          ###   ########.fr       */
+/*   Updated: 2014/03/26 18:56:50 by ebaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,6 +160,7 @@ t_vector	*vector_sub(t_vector *a, t_vector *b);
 void		vector_sub_assoc(t_vector *vector, t_vector *a, t_vector *b);
 void		vector_mult(t_vector *vector, t_vector *a, double val);
 void		vector_add(t_vector *vector, t_vector *a, t_vector *b);
+double		dist_ab(t_vector *a, t_vector *b);
 
 /*
 ** sphere.c

@@ -6,7 +6,7 @@
 /*   By: ebaudet <ebaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/16 22:19:34 by ebaudet           #+#    #+#             */
-/*   Updated: 2014/03/24 19:39:30 by ebaudet          ###   ########.fr       */
+/*   Updated: 2014/03/26 19:07:07 by ebaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,4 +59,13 @@ void		vector_add(t_vector *vector, t_vector *a, t_vector *b)
 	vector->x = a->x + b->x;
 	vector->y = a->y + b->y;
 	vector->z = a->z + b->z;
+}
+
+double		dist_ab(t_vector *a, t_vector *b)
+{
+	double		dist;
+
+	dist = sqrt(pow(a->x - b->x, 2) + pow(a->y - b->y, 2)
+		+ pow(a->z - b->z, 2));
+	return (dist);
 }

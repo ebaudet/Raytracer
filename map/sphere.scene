@@ -37,10 +37,10 @@ sphere
 #type
 sphere
 #radius
-100
+300
 #origin
 180
-200
+400
 -1000
 #color
 255
