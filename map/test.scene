@@ -87,9 +87,9 @@ plan
 1
 0
 #color
-50
-50
-50
+250
+250
+250
 ##189
 ##189
 ##189
@@ -140,7 +140,7 @@ light
 250
 #end_object
 
-#type
+##type
 light
 #origin
 -250
@@ -152,7 +152,7 @@ light
 250
 #end_object
 
-#type
+##type
 light
 #origin
 -500
@@ -168,7 +168,7 @@ light
 #type
 cylinder
 #origin
--100
+-300
 -400
 -500
 #dir

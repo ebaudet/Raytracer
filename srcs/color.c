@@ -6,7 +6,7 @@
 /*   By: ebaudet <ebaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/21 18:27:01 by ebaudet           #+#    #+#             */
-/*   Updated: 2014/03/26 01:21:54 by ebaudet          ###   ########.fr       */
+/*   Updated: 2014/03/26 18:29:56 by ebaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,16 +72,25 @@ int		color_find(void *object, t_vector *ray_dir, double coef)
 	t_light		*light;
 	int			color;
 	t_vector	impact;
-	/*int			deja_vu;*/
+	double		dist;
+	t_ray		ray_light;
 
 	color = get_color(object);
 	light = data_init()->light;
 	calcul_impact(&impact, ray_dir, coef);
+	dist = sqrt(vector_dot(ray_dir, &impact));
+	ray_light.o = &impact;
+	ray_light.d = vector_sub(&impact, light->pos);
+	vector_normalize(ray_light.d);
 	/*color = color_mult(color, pow((1 - (coef / 200000)), 150));*/
 	while (light)
 	{
-		color = color_light(color_lambert(object, light, &impact, get_color(object)), color);
-		color = color_speculaire(object, light, &impact, color);
+		if (!intersection(data_init(), &ray_light, &dist))
+		{
+			/*color = color_light(color_lambert(object, light, &impact, get_color(object)), color);*/
+			color = color_lambert(object, light, &impact, color);
+			color = color_speculaire(object, light, &impact, color);
+		}
 		light = light->next;
 	}
 	return (color);
