@@ -6,7 +6,7 @@
 /*   By: ebaudet <ebaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/14 18:52:59 by ebaudet           #+#    #+#             */
-/*   Updated: 2014/03/26 01:20:09 by ebaudet          ###   ########.fr       */
+/*   Updated: 2014/03/26 18:02:17 by gpetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -226,13 +226,14 @@ int			eb_expose_hook(t_img *img);
 /*
 ** data.c
 */
+
 t_data		*data_init(void);
 
 /*
 ** color.c
 */
-int			color_find(void *object, t_vector *ray_di
-	, double coef);
+
+int			color_find(void *object, t_vector *ray_di, double coef);
 int			color_shadow(int color, double shadow);
 int			color_mult(int color, double mult);
 int			color_light(int color, int color2);
@@ -280,6 +281,12 @@ void		ft_set_light(t_data *data, char **line, int fd);
 */
 
 void		ft_set_cylinder(t_data *data, char **line, int fd);
+
+/*
+**	ft_set_cone.c
+*/
+
+void		ft_set_cone(t_data *data, char **line, int fd);
 
 /*
 **	tools.c
