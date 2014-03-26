@@ -6,64 +6,84 @@
 /*   By: ebaudet <ebaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/21 18:27:01 by ebaudet           #+#    #+#             */
-/*   Updated: 2014/03/25 20:18:45 by ebaudet          ###   ########.fr       */
+/*   Updated: 2014/03/26 01:21:54 by ebaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <math.h>
 #include "rtv1.h"
 
-int		color_speculaire(void *object, int color, t_data *d, t_vector *ray_dir, double coef)
+int		get_color(void *object)
 {
-	double		spec;
-	t_vector	light;
-	t_vector	reflect;
-	t_vector	normal;
-	t_vector	impact;
+	int		color;
 
-	impact.x = d->cam->x + coef * ray_dir->x;
-	impact.y = d->cam->y + coef * ray_dir->y;
-	impact.z = d->cam->z + coef * ray_dir->z;
-	vect_normal(&normal, &impact, object);
-
-	vector_sub_assoc(&light, &impact, d->light->pos);
-	vector_normalize(&light);
-
-	vector_mult(&reflect, &normal, -2 * vector_dot(&light, &normal));
-	vector_sub_assoc(&reflect, &light, &reflect);
-	vector_normalize(&reflect);
-
-	vector_mult(&light, &light, -1);
-
-	spec = vector_dot(&light, &normal);
-	/*if (spec > 0.1)
-	{*/
-		/*spec = vector_dot(&light, &reflect);*/
-/*	}*/
-	color = color_lambert(color, pow(spec, 50));
+	color = ((t_struct *)object)->color;
+	color = color_shadow(color, 0.5);
 	return (color);
 }
 
-int		color_find(void *object, t_data *d, t_vector *ray_dir, double coef)
+void	calcul_impact(t_vector *impact, t_vector *ray_dir, double coef)
+{
+	t_data		*d;
+
+	d = data_init();
+	impact->x = d->cam->x + coef * ray_dir->x;
+	impact->y = d->cam->y + coef * ray_dir->y;
+	impact->z = d->cam->z + coef * ray_dir->z;
+}
+
+int		color_speculaire(void *object, t_light *light, t_vector *impact, int color)
+{
+	double		spec;
+	t_vector	shine;
+	/*t_vector	reflect;*/
+	t_vector	normal;
+
+	vect_normal(&normal, impact, object);
+	vector_sub_assoc(&shine, impact, light->pos);
+	vector_normalize(&shine);
+	/*vector_mult(&reflect, &normal, -2 * vector_dot(&shine, &normal));
+	vector_sub_assoc(&reflect, &shine, &reflect);
+	vector_normalize(&reflect);*/
+	vector_mult(&shine, &shine, -1);
+	/*spec = vector_dot(&shine, &reflect);*/
+	spec = vector_dot(&shine, &normal);
+	if (spec > 0)
+		color = color_mult(color, pow(spec, 50));
+	return (color);
+}
+
+int		color_lambert(void *object, t_light *light, t_vector *impact, int color)
 {
 	double		lambert;
-	t_vector	impact;
 	t_vector	normal;
-	t_vector	light;
-	int			color;
+	t_vector	diffusion;
 
-	impact.x = d->cam->x + coef * ray_dir->x;
-	impact.y = d->cam->y + coef * ray_dir->y;
-	impact.z = d->cam->z + coef * ray_dir->z;
-	vect_normal(&normal, &impact, object);
-	vector_sub_assoc(&light, d->light->pos, &impact);
-	vector_normalize(&light);
-	lambert = vector_dot(&light, &normal);
-	color = ((t_struct *)object)->color;
-	color = color_shadow(color, 0.5);
-	lambert = lambert * pow((1 - (coef / 200000)), 150);
-	color = color_lambert(color, lambert);
-	color = color_speculaire(object, color, d, ray_dir, coef);	
+	vect_normal(&normal, impact, object);
+	vector_sub_assoc(&diffusion, light->pos, impact);
+	vector_normalize(&diffusion);
+	lambert = vector_dot(&diffusion, &normal);
+	color = color_mult(color, lambert);
+	return (color);
+}
+
+int		color_find(void *object, t_vector *ray_dir, double coef)
+{
+	t_light		*light;
+	int			color;
+	t_vector	impact;
+	/*int			deja_vu;*/
+
+	color = get_color(object);
+	light = data_init()->light;
+	calcul_impact(&impact, ray_dir, coef);
+	/*color = color_mult(color, pow((1 - (coef / 200000)), 150));*/
+	while (light)
+	{
+		color = color_light(color_lambert(object, light, &impact, get_color(object)), color);
+		color = color_speculaire(object, light, &impact, color);
+		light = light->next;
+	}
 	return (color);
 }
 
@@ -83,19 +103,43 @@ int		color_shadow(int color, double shadow)
 	return (color);
 }
 
-int		color_lambert(int color, double lambert)
+int		color_light(int color, int color2)
 {
 	int		red;
 	int		green;
 	int		blue;
 
-	/*lambert = (lambert < 0 ? 0 : lambert);*/
+	if (((color >> 16) % 256) > ((color2 >> 16) % 256))
+		red = (color >> 16) % 256;
+	else
+		red = (color2 >> 16) % 256;
+
+	if (((color >> 8) % 256) > ((color2 >> 8) % 256))
+		green = (color >> 8) % 256;
+	else
+		green = (color2 >> 8) % 256;
+
+	if (((color) % 256) > ((color2) % 256))
+		blue = (color) % 256;
+	else
+		blue = (color2) % 256;
+	color = color_norm(red, green, blue);
+	return (color);
+}
+
+int		color_mult(int color, double mult)
+{
+	int		red;
+	int		green;
+	int		blue;
+
+	/*mult = (mult < 0 ? 0 : mult);*/
 	red = (color >> 16) % 256;
 	green = (color >> 8) % 256;
 	blue = color % 256;
-	red += red * lambert;
-	green += green * lambert;
-	blue += blue * lambert;
+	red += red * mult;
+	green += green * mult;
+	blue += blue * mult;
 	color = color_norm(red, green, blue);
 	return (color);
 }

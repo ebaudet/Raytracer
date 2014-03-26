@@ -6,7 +6,7 @@
 /*   By: ebaudet <ebaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/14 18:53:48 by ebaudet           #+#    #+#             */
-/*   Updated: 2014/03/25 21:35:37 by ebaudet          ###   ########.fr       */
+/*   Updated: 2014/03/25 23:17:09 by ebaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	color_pixel(t_img *img, int x, int y, t_ray *rayon)
 	inter = intersection(d, rayon, &coef);
 	if (inter != NULL && coef < 200000)
 	{
-		color = color_find(inter, d, &ray_dir, coef);
+		color = color_find(inter, &ray_dir, coef);
 		eb_put_pixel_to_img(img, x, y, color);
 	}
 }

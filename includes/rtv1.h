@@ -6,7 +6,7 @@
 /*   By: ebaudet <ebaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/14 18:52:59 by ebaudet           #+#    #+#             */
-/*   Updated: 2014/03/25 20:52:01 by ebaudet          ###   ########.fr       */
+/*   Updated: 2014/03/26 01:20:09 by ebaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -212,10 +212,11 @@ t_data		*data_init(void);
 /*
 ** color.c
 */
-int			color_find(void *object, t_data *d, t_vector *ray_di
+int			color_find(void *object, t_vector *ray_di
 	, double coef);
 int			color_shadow(int color, double shadow);
-int			color_lambert(int color, double lambert);
+int			color_mult(int color, double mult);
+int			color_light(int color, int color2);
 int			color_norm(int red, int green, int blue);
 
 /*
