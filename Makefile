@@ -6,7 +6,7 @@
 #    By: ebaudet <ebaudet@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/02/15 00:09:57 by ebaudet           #+#    #+#              #
-#    Updated: 2014/03/25 17:50:48 by gpetrov          ###   ########.fr        #
+#    Updated: 2014/03/26 18:07:13 by gpetrov          ###   ########.fr        #
 
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME	= RT
 FILES	= env.c error.c image.c main.c rtv1.c sphere.c vector.c ray.c hook.c \
 		data.c vector_calculation.c color.c light.c intersection.c plan.c \
 		parse.c cylinder.c normal.c tools.c ft_scene_init.c ft_set_sphere.c \
-		ft_set_plan.c ft_set_light.c ft_set_cylinder.c cone.c
+		ft_set_plan.c ft_set_light.c ft_set_cylinder.c cone.c ft_set_cone.c
 SRCS	= $(addprefix srcs/, $(FILES))
 OBJS	= $(SRCS:srcs/%.c=.obj/%.o)
 INC		= -I includes -I libft/includes

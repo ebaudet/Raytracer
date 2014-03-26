@@ -6,7 +6,7 @@
 /*   By: ebaudet <ebaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/14 18:53:48 by ebaudet           #+#    #+#             */
-/*   Updated: 2014/03/25 23:17:09 by ebaudet          ###   ########.fr       */
+/*   Updated: 2014/03/26 18:01:50 by gpetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,9 @@ void	init_scene(void)
 
 	data = data_init();
 	ft_parse_scene(data);
-	cone_new(vector_new(-100, 0, -500), 0.1
-	, color_norm(200, 200, 200)
-	, vector_new(0, 0, 1));
+	/* cone_new(vector_new(-100, 0, -500), 0.100 */
+/* 	, color_norm(200, 200, 200) */
+/* 	, vector_new(0, 0, 1)); */
 }
 
 void	display_screen(t_img *img)
