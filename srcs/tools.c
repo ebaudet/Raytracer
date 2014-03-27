@@ -69,3 +69,11 @@ int			ft_check_if_nbr(char *str)
 	}
 	return (1);
 }
+
+void		ft_error_init(char *origin, char *dir, char *color, char *co)
+{
+	*origin = '0';
+	*dir = '0';
+	*color = '0';
+	*co = '0';
+}

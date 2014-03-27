@@ -15,24 +15,27 @@
 void		ft_objects_init(t_data *data, char **line, int fd)
 {
 	char	error_object;
+	int 	ret;
 
 	error_object = '0';
-	while (ft_strcmp("##end", *line) != 0)
+	while (ft_strcmp("##end", *line) != 0 && ret > 0)
 	{
 		if (ft_strcmp("#type", *line) == 0)
 		{
 			get_next_line(fd, line);
-			if (ft_strcmp("sphere", *line) == 0)
+			if (ft_strcmp("sphere", *line) == 0 && (error_object = '1'))
 				ft_set_sphere(data, line, fd);
-			else if (ft_strcmp("plan", *line) == 0)
+			else if (ft_strcmp("plan", *line) == 0 && (error_object = '1'))
 				ft_set_plan(data, line, fd);
-			else if (ft_strcmp("light", *line) == 0)
+			else if (ft_strcmp("light", *line) == 0 && (error_object = '1'))
 				ft_set_light(data, line, fd);
-			else if (ft_strcmp("cylinder", *line) == 0)
+			else if (ft_strcmp("cylinder", *line) == 0 && (error_object = '1'))
 				ft_set_cylinder(data, line, fd);
-			error_object = '1';
+			else if (ft_strcmp("cone", *line) == 0 && (error_object = '1'))
+				ft_set_cone(data, line, fd);
 		}
-		get_next_line(fd, line);
+		if ((ret = get_next_line(fd, line)) <= 0 && error_object == '0')
+			ft_error("[ERROR - SCENE] - OBJ init");
 	}
 	if (error_object == '0')
 		ft_error("[ERROR - SCENE] - No Objects");

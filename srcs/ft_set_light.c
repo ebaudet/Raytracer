@@ -44,16 +44,36 @@ static void		ft_set_light_color(t_data *data, char **line, int fd)
 	data->z2 = (double)ft_atoi(*line);
 }
 
+static void		ft_set_light_ref(t_data *data, char **line, int fd)
+{
+	if (get_next_line(fd, line) <= 0)
+		ft_error("[ERROR] - End of File");
+	if (ft_check_if_nbr(*line) == -1)
+		ft_error("[ERROR SCENE] - Light's reflexion is not a digit");
+	*ref = ft_atoi(line);
+}
+
 void			ft_set_light(t_data *data, char **line, int fd)
 {
+	char		origin;
+	char		color;
+	char		ref;
+
+	origin = '0';
+	color = '0';
 	while (ft_strcmp("#end_object", *line) != 0)
 	{
-		if (ft_strcmp("#origin", *line) == 0)
+		if (ft_strcmp("#origin", *line) == 0 && (origin = '1'))
 			ft_set_light_origin(data, line, fd);
-		else if (ft_strcmp("#color", *line) == 0)
+		else if (ft_strcmp("#color", *line) == 0 && (color = '1'))
 			ft_set_light_color(data, line, fd);
-		get_next_line(fd, line);
+		else if (ft_strcmp("#ref", *line) == 0 && (ref = '1'))
+			ft_set_light_ref(&ref, line, fd);
+		if (get_next_line(fd, line) <= 0)
+			ft_error("[ERROR OBJECT] - Object cone has no end");
 	}
+	if (origin == '0' || color == '0')
+		ft_error("[ERROR OBJECT] - Cone's spec missing");
 	light_new(vector_new(data->x, data->y, data->z)
-	, color_norm(data->x2, data->y2, data->z2));
+	, color_set(data->x2, data->y2, data->z2, ref));
 }

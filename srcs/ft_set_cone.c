@@ -68,24 +68,44 @@ static void		ft_set_cone_color(t_data *data, char **line, int fd)
 	data->b = (double)ft_atoi(*line);
 }
 
+static void		ft_set_cone_ref(t_data *data, char **line, int fd)
+{
+	
+	if (get_next_line(fd, line) <= 0)
+		ft_error("[ERROR] - End of File");
+	if (ft_check_if_nbr(*line) == -1)
+		ft_error("[ERROR SCENE] - Cone's reflexion is not a digit");
+	*ref = ft_atoi(line);
+}
+
 void			ft_set_cone(t_data *data, char **line, int fd)
 {
 	double		cons;
+	char		origin;
+	char		dir;
+	char		color;
+	char		co;
+	char		ref;
 
+	ft_error_init(&origin, &dir, &color, &co);
 	while (ft_strcmp("#end_object", *line) != 0)
 	{
-		if (ft_strcmp("#origin", *line) == 0)
+		if (ft_strcmp("#origin", *line) == 0 && (origin = '1'))
 			ft_set_cone_origin(data, line, fd);
-		else if (ft_strcmp("#dir", *line) == 0)
+		else if (ft_strcmp("#dir", *line) == 0 && (dir = '1'))
 			ft_set_cone_dir(data, line, fd);
-		else if (ft_strcmp("#const", *line) == 0)
+		else if (ft_strcmp("#const", *line) == 0 && (co = '1'))
 			ft_set_cone_const(&cons, line, fd);
-		else if (ft_strcmp("#color", *line) == 0)
+		else if (ft_strcmp("#color", *line) == 0 && (color = '1'))
 			ft_set_cone_color(data, line, fd);
-		get_next_line(fd, line);
+		else if (ft_strcmp("#ref", *line) == 0 && (ref = '1'))
+			ft_set_cone_ref(&ref, line, fd);
+		if (get_next_line(fd, line) <= 0)
+			ft_error("[ERROR OBJECT] - Object cone has no end");
 	}
-	ft_putstr("TEST\n");
+	if (origin == '0' || dir == '0' || co == '0' || color == '0' || ref == '0')
+		ft_error("[ERROR OBJECT] - Cone's spec missing");
 	cone_new(vector_new(data->x, data->y, data->z), cons
-	, color_norm(data->r, data->g, data->b)
+	, color_set(data->r, data->g, data->b, ref)
 	, vector_new(data->x2, data->y2, data->z2));
 }

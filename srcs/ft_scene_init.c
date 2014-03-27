@@ -44,6 +44,11 @@ static void		ft_scene_init_cam(t_data *data, char **line, int fd)
 
 void			ft_scene_init(t_data *data, char **line, int fd)
 {
+	char		win;
+	char		cam;
+
+	win = '0';
+	cam = '0';
 	while (ft_strcmp(*line, "#end_env") != 0)
 	{
 		if (ft_strcmp(*line, "#name") == 0)
@@ -51,10 +56,13 @@ void			ft_scene_init(t_data *data, char **line, int fd)
 			get_next_line(fd, line);
 			data->scene_name = ft_strdup(*line);
 		}
-		else if (ft_strcmp("#window", *line) == 0)
+		else if (ft_strcmp("#window", *line) == 0 && (win = '1'))
 			ft_scene_init_window(data, line, fd);
-		else if (ft_strcmp(*line, "#cam") == 0)
+		else if (ft_strcmp(*line, "#cam") == 0 && (cam = '1'))
 			ft_scene_init_cam(data, line, fd);
-		get_next_line(fd, line);
+		if (get_next_line(fd, line) <= 0)
+			ft_error("[ERROR SCENE] - No end for scene init");
 	}
+	if (cam == '0' || win == '0')
+		ft_error("[ERROR SCENE] - No camera or window specifications");
 }

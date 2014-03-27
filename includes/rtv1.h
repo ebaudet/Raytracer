@@ -23,6 +23,7 @@ typedef struct		s_struct
 {
 	char			type;
 	int				color;
+	char			ref;
 }					t_struct;
 
 typedef struct		s_vector
@@ -43,6 +44,7 @@ typedef struct 		s_cone
 {
 	char			type;
 	int 			color;
+	char			ref;
 	t_vector 		*pos;
 	double			radius;
 	t_vector		*dir;
@@ -53,6 +55,7 @@ typedef struct		s_plan
 {
 	char			type;
 	int				color;
+	char			ref;
 	t_vector		*normal;
 	int				constante;
 	struct s_plan	*next;
@@ -62,6 +65,7 @@ typedef struct		s_sphere
 {
 	char			type;
 	int				color;
+	char			ref;
 	t_vector		*pos;
 	double			radius;
 	struct s_sphere	*next;
@@ -71,6 +75,7 @@ typedef struct		s_cylind
 {
 	char			type;
 	int				color;
+	char			ref;
 	t_vector		*pos;
 	double			radius;
 	t_vector		*dir;
@@ -81,6 +86,7 @@ typedef struct		s_light
 {
 	char			type;
 	int				color;
+	char			ref;
 	t_vector		*pos;
 	struct s_light	*next;
 }					t_light;
@@ -295,5 +301,6 @@ void		ft_set_cone(t_data *data, char **line, int fd);
 
 double		ft_atod(char **str);
 int		ft_check_if_nbr(char *str);
+void		ft_error_init(char *origin, char *dir, char *color, char *co);
 
 #endif /* !RTV1_H */

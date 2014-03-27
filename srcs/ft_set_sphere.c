@@ -52,20 +52,47 @@ static void		ft_set_sphere_color(t_data *data, char **line, int fd)
 	data->z2 = ft_atoi(*line);
 }
 
+static void		ft_set_sphere_norm_fuck(char *rad, char *origin, char *color)
+{
+	*rad = '0';
+	*origin = '0';
+	*color = '0';
+}
+
+static void		ft_set_sphere_ref(t_data *data, char **line, int fd)
+{
+	
+	if (get_next_line(fd, line) <= 0)
+		ft_error("[ERROR] - End of File");
+	if (ft_check_if_nbr(*line) == -1)
+		ft_error("[ERROR SCENE] - Sphere's reflexion is not a digit");
+	*ref = ft_atoi(line);
+}
+
 void			ft_set_sphere(t_data *data, char **line, int fd)
 {
 	double		radius;
+	char		rad;
+	char		origin;
+	char		color;
+	char		ref;
 
+	ft_set_sphere_norm_fuck(&rad, &origin, &color);
 	while (ft_strcmp("#end_object", *line) != 0)
 	{
-		if (ft_strcmp("#radius", *line) == 0)
+		if (ft_strcmp("#radius", *line) == 0 && (rad = '1'))
 			ft_set_sphere_rad(line, fd, &radius);
-		else if (ft_strcmp("#origin", *line) == 0)
+		else if (ft_strcmp("#origin", *line) == 0 && (origin = '1'))
 			ft_set_sphere_origin(data, line, fd);
-		else if (ft_strcmp("#color", *line) == 0)
+		else if (ft_strcmp("#color", *line) == 0 && (color = '1'))
 			ft_set_sphere_color(data, line, fd);
-		get_next_line(fd, line);
+		else if (ft_strcmp("#ref", *line) == 0 && (ref = '1'))
+			ft_set_sphere_ref(&ref, line, fd);
+		if (get_next_line(fd, line) <= 0)
+			ft_error("[ERROR OBJECT] - Object sphere has no end");
 	}
+	if (rad == '0' || origin == '0' || color == '0')
+		ft_error("[OBJECT ERROR] - Sphere's spec missing");
 	sphere_new(vector_new(data->x, data->y, data->z), radius \
-	, color_norm((int)data->x2, (int)data->y2, (int)data->z2));
+	, color_set((int)data->x2, (int)data->y2, (int)data->z2), ref);
 }
