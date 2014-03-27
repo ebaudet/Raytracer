@@ -6,7 +6,7 @@
 /*   By: ebaudet <ebaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/25 17:41:07 by gpetrov           #+#    #+#             */
-/*   Updated: 2014/03/27 19:54:21 by ebaudet          ###   ########.fr       */
+/*   Updated: 2014/03/27 22:03:09 by gpetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ static void		ft_set_plan_color(t_data *data, char **line, int fd)
 
 static void		ft_set_plan_ref(char *ref, char **line, int fd)
 {
-	
 	if (get_next_line(fd, line) <= 0)
 		ft_error("[ERROR] - End of File");
 	if (ft_check_if_nbr(*line) == -1)
@@ -66,28 +65,25 @@ static void		ft_set_plan_ref(char *ref, char **line, int fd)
 void			ft_set_plan(t_data *data, char **line, int fd)
 {
 	int			cons;
-	char		origin;
-	char		color;
-	char		co;
 	char		ref;
 
-	origin = '0';
-	color = '0';
-	co = '0';
+	data->origin = '0';
+	data->color = '0';
+	data->co = '0';
 	while (ft_strcmp("#end_object", *line) != 0)
 	{
-		if (ft_strcmp("#const", *line) == 0 && (co = '1'))
+		if (ft_strcmp("#const", *line) == 0 && (data->co = '1'))
 			ft_set_plan_const(&cons, line, fd);
-		else if (ft_strcmp("#origin", *line) == 0 && (origin = '1'))
+		else if (ft_strcmp("#origin", *line) == 0 && (data->origin = '1'))
 			ft_set_plan_origin(data, line, fd);
-		else if (ft_strcmp("#color", *line) == 0 && (color = '1'))
+		else if (ft_strcmp("#color", *line) == 0 && (data->color = '1'))
 			ft_set_plan_color(data, line, fd);
 		else if (ft_strcmp("#ref", *line) == 0 && (ref = '1'))
 			ft_set_plan_ref(&ref, line, fd);
 		if (get_next_line(fd, line) <= 0)
 			ft_error("[ERROR OBJECT] - Object plan has no end");
 	}
-	if (origin == '0' || co == '0' || color == '0')
+	if (data->origin == '0' || data->co == '0' || data->color == '0')
 		ft_error("[ERROR OBJECT] - Plan's spec missing");
 	plan_new(vector_new(data->x, data->y, data->z), cons
 	, color_set((int)data->x2, (int)data->y2, (int)data->z2, ref));

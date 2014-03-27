@@ -110,6 +110,11 @@ typedef struct		s_data
 	t_vector		*cam;
 	t_light			*light;
 	char			*scene_name;
+	char			origin;
+	char			dir;
+	char			color;
+	char			co;
+	char			ref;
 	double			x;
 	double			y;
 	double			z;

@@ -210,4 +210,11 @@ int			ft_check_if_nbr(char *str);
 void		ft_error_init(char *origin, char *dir, char *color, char *co);
 char		type_object(void *ptr);
 
+/*
+**	ft_set_ref.c
+*/
+void		ft_set_cone_ref(char *ref, char **line, int fd);
+void		ft_set_cylinder_ref(char *ref, char **line, int fd);
+void		ft_set_sphere_ref(char **line, int fd, char *ref);
+
 #endif

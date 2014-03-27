@@ -69,44 +69,30 @@ static void		ft_set_cylinder_color(t_data *data, char **line, int fd)
 	data->b = (double)ft_atoi(*line);
 }
 
-static void		ft_set_cylinder_ref(char *ref, char **line, int fd)
-{
-	
-	if (get_next_line(fd, line) <= 0)
-		ft_error("[ERROR] - End of File");
-	if (ft_check_if_nbr(*line) == -1)
-		ft_error("[ERROR SCENE] - Cylinder's reflexion is not a digit");
-	*ref = ft_atoi(*line);
-}
-
 void			ft_set_cylinder(t_data *data, char **line, int fd)
 {
 	int			cons;
-	char		origin;
-	char		dir;
-	char		color;
-	char		co;
-	char		ref;
 
-	ft_error_init(&origin, &dir, &color, &co);
+	ft_error_init(&data->origin, &data->dir, &data->color, &data->co);
 	while (ft_strcmp("#end_object", *line) != 0)
 	{
-		if (ft_strcmp("#origin", *line) == 0 && (origin = '1'))
+		if (ft_strcmp("#origin", *line) == 0 && (data->origin = '1'))
 			ft_set_cylinder_origin(data, line, fd);
-		else if (ft_strcmp("#dir", *line) == 0 && (dir = '1'))
+		else if (ft_strcmp("#dir", *line) == 0 && (data->dir = '1'))
 			ft_set_cylinder_dir(data, line, fd);
-		else if (ft_strcmp("#const", *line) == 0 && (co = '1'))
+		else if (ft_strcmp("#const", *line) == 0 && (data->co = '1'))
 			ft_set_cylinder_const(&cons, line, fd);
-		else if (ft_strcmp("#color", *line) == 0 && (color = '1'))
+		else if (ft_strcmp("#color", *line) == 0 && (data->color = '1'))
 			ft_set_cylinder_color(data, line, fd);
-		else if (ft_strcmp("#ref", *line) == 0 && (ref = '1'))
-			ft_set_cylinder_ref(&ref, line, fd);
+		else if (ft_strcmp("#ref", *line) == 0 && (data->ref = '1'))
+			ft_set_cylinder_ref(&data->ref, line, fd);
 		if (get_next_line(fd, line) <= 0)
 			ft_error("[ERROR OBJECT] - Object cylinder has no end");
 	}
-	if (origin == '0' || dir == '0' || co == '0' || color == '0')
+	if (data->origin == '0' || data->dir == '0' ||
+		data->co == '0' || data->color == '0')
 		ft_error("[ERROR OBJECT] - Cylinder's spec missing");
 	cylinder_new(vector_new(data->x, data->y, data->z), cons
-	, color_set(data->r, data->g, data->b, ref)
+	, color_set(data->r, data->g, data->b, data->ref)
 	, vector_new(data->x2, data->y2, data->z2));
 }

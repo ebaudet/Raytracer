@@ -6,16 +6,14 @@
 /*   By: ebaudet <ebaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/11/21 11:44:10 by ebaudet           #+#    #+#             */
-/*   Updated: 2014/03/25 21:48:19 by ebaudet          ###   ########.fr       */
+/*   Updated: 2014/03/27 22:06:05 by gpetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
-
-# include <string.h>
-
 # define BUFF_SIZE 32
+# include <string.h>
 
 /*
 ** functions part 1
