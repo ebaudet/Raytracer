@@ -73,6 +73,7 @@ void			ft_set_cylinder(t_data *data, char **line, int fd)
 {
 	int			cons;
 
+	data->ref = 0;
 	ft_error_init(&data->origin, &data->dir, &data->color, &data->co);
 	while (ft_strcmp("#end_object", *line) != 0)
 	{
@@ -84,7 +85,7 @@ void			ft_set_cylinder(t_data *data, char **line, int fd)
 			ft_set_cylinder_const(&cons, line, fd);
 		else if (ft_strcmp("#color", *line) == 0 && (data->color = '1'))
 			ft_set_cylinder_color(data, line, fd);
-		else if (ft_strcmp("#ref", *line) == 0 && (data->ref = '1'))
+		else if (ft_strcmp("#ref", *line) == 0)
 			ft_set_cylinder_ref(&data->ref, line, fd);
 		if (get_next_line(fd, line) <= 0)
 			ft_error("[ERROR OBJECT] - Object cylinder has no end");

@@ -24,6 +24,7 @@ void		plan_new(t_vector *normal, int constante, int color)
 		ft_error("error malloc");
 	plan->type = 'p';
 	plan->color = color;
+	plan->ref = (color >> 24) % 256;
 	plan->normal = normal;
 	vector_normalize(plan->normal);
 	plan->constante = constante;

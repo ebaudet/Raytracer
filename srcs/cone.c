@@ -25,6 +25,7 @@ void		cone_new(t_vector *pos, double radius, int color, t_vector *dir)
 		ft_error("error malloc");
 	cone->type = 'c';
 	cone->color = color;
+	cone->ref = (color >> 24) % 256;
 	cone->pos = pos;
 	cone->radius = radius;
 	cone->dir = dir;

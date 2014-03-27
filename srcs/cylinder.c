@@ -25,6 +25,7 @@ void		cylinder_new(t_vector *pos, double radius, int color, t_vector *dir)
 		ft_error("error malloc");
 	cylinder->type = 'c';
 	cylinder->color = color;
+	cylinder->ref = (color >> 24) % 256;
 	cylinder->pos = pos;
 	cylinder->radius = radius;
 	cylinder->dir = dir;

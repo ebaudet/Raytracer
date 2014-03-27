@@ -70,6 +70,7 @@ void			ft_set_plan(t_data *data, char **line, int fd)
 	data->origin = '0';
 	data->color = '0';
 	data->co = '0';
+	ref = 0;
 	while (ft_strcmp("#end_object", *line) != 0)
 	{
 		if (ft_strcmp("#const", *line) == 0 && (data->co = '1'))
@@ -78,7 +79,7 @@ void			ft_set_plan(t_data *data, char **line, int fd)
 			ft_set_plan_origin(data, line, fd);
 		else if (ft_strcmp("#color", *line) == 0 && (data->color = '1'))
 			ft_set_plan_color(data, line, fd);
-		else if (ft_strcmp("#ref", *line) == 0 && (ref = '1'))
+		else if (ft_strcmp("#ref", *line) == 0)
 			ft_set_plan_ref(&ref, line, fd);
 		if (get_next_line(fd, line) <= 0)
 			ft_error("[ERROR OBJECT] - Object plan has no end");

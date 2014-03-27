@@ -65,6 +65,7 @@ void			ft_set_sphere(t_data *data, char **line, int fd)
 	double		radius;
 	char		rad;
 
+	data->ref = 0;
 	ft_set_sphere_norm_fuck(&rad, &data->origin, &data->color);
 	while (ft_strcmp("#end_object", *line) != 0)
 	{
@@ -74,7 +75,7 @@ void			ft_set_sphere(t_data *data, char **line, int fd)
 			ft_set_sphere_origin(data, line, fd);
 		else if (ft_strcmp("#color", *line) == 0 && (data->color = '1'))
 			ft_set_sphere_color(data, line, fd);
-		else if (ft_strcmp("#ref", *line) == 0 && (data->ref = '1'))
+		else if (ft_strcmp("#ref", *line) == 0)
 			ft_set_sphere_ref(line, fd, &data->ref);
 		if (get_next_line(fd, line) <= 0)
 			ft_error("[ERROR OBJECT] - Object sphere has no end");

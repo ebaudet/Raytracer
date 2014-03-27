@@ -25,6 +25,7 @@ void		sphere_new(t_vector *position, double radius, int color)
 		ft_error("error malloc");
 	sphere->type = 's';
 	sphere->color = color;
+	sphere->ref = (color >> 24) % 256;
 	sphere->pos = position;
 	sphere->radius = radius;
 	sphere->next = NULL;

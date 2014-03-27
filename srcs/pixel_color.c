@@ -68,7 +68,7 @@ int		color_reflexion(void *object, t_vector *ray_dir, t_vector *impact
 	int			new_color;
 	static int	how_many = 1;
 
-	if (type_object(object) != 's')
+	if (((t_struct *)object)->ref == 0)
 		return (color);
 	if (how_many == 0)
 	{
@@ -82,7 +82,7 @@ int		color_reflexion(void *object, t_vector *ray_dir, t_vector *impact
 	reflexion.o = vector_copy(impact);
 	if ((new_color = color_pixel(&reflexion, 200000)) == 0)
 		return (color);
-	color = color_add(color, new_color, 100);
+	color = color_add(color, new_color, ((t_struct *)object)->ref);
 	return (color);
 }
 

@@ -22,6 +22,8 @@ FUCK
 
 #type
 sphere
+#ref
+100
 #radius
 50
 #origin
