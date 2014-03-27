@@ -199,10 +199,10 @@ cone
 
 #end_object
 
-##type
+#type
 cylinder
 #origin
--100
+-550
 -400
 -500
 #dir
@@ -212,9 +212,9 @@ cylinder
 #const
 80
 #color
-200
-200
-200
+255
+144
+9
 #end_object
 
 ####type

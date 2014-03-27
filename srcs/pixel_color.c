@@ -6,7 +6,7 @@
 /*   By: ebaudet <ebaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/27 20:55:41 by ebaudet           #+#    #+#             */
-/*   Updated: 2014/03/27 21:10:04 by ebaudet          ###   ########.fr       */
+/*   Updated: 2014/03/27 23:27:38 by ebaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int		color_reflexion(void *object, t_vector *ray_dir, t_vector *impact
 	, int color)
 {
 	t_ray		reflexion;
-	t_vector	pouet;
+	t_vector	tmp;
 	t_vector	normal;
 	int			new_color;
 	static int	how_many = 1;
@@ -77,8 +77,11 @@ int		color_reflexion(void *object, t_vector *ray_dir, t_vector *impact
 	}
 	how_many--;
 	vect_normal(&normal, impact, object);
-	vector_mult(&pouet, &normal, 2 * vector_dot(ray_dir, &normal));
-	reflexion.d = vector_sub(ray_dir, &pouet);
+	if (vector_dot(ray_dir, &normal) < 0)
+		return (color);
+	vector_mult(&tmp, &normal, 2 * vector_dot(ray_dir, &normal));
+	reflexion.d = vector_sub(ray_dir, &tmp);
+	vector_normalize(reflexion.d);
 	reflexion.o = vector_copy(impact);
 	if ((new_color = color_pixel(&reflexion, 200000)) == 0)
 		return (color);

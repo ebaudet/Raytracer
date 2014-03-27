@@ -6,7 +6,7 @@
 /*   By: ebaudet <ebaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/26 14:45:26 by gpetrov           #+#    #+#             */
-/*   Updated: 2014/03/27 20:49:22 by ebaudet          ###   ########.fr       */
+/*   Updated: 2014/03/27 21:54:32 by ebaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void		cone_new(t_vector *pos, double radius, int color, t_vector *dir)
 	data = data_init();
 	if ((cone = (t_cone *)malloc(sizeof(t_cone))) == NULL)
 		ft_error("error malloc");
-	cone->type = 'c';
+	cone->type = 'o';
 	cone->color = color;
 	cone->ref = (color >> 24) % 256;
 	cone->pos = pos;
