@@ -23,7 +23,10 @@ static t_sphere		*sphere_intersection(t_data *data, t_ray *ray, double *dist)
 	while (tmp)
 	{
 		if (!intersection_sphere(tmp, ray, dist))
-			current = tmp;
+		{
+			if (data->current != tmp)
+				current = tmp;
+		}
 		tmp = tmp->next;
 	}
 	return (current);
@@ -39,7 +42,10 @@ static t_plan		*plan_intersection(t_data *data, t_ray *ray, double *dist)
 	while (tmp)
 	{
 		if (!intersection_plan(tmp, ray, dist))
-			current = tmp;
+		{
+			if (data->current != tmp)
+				current = tmp;
+		}
 		tmp = tmp->next;
 	}
 	return (current);
@@ -55,7 +61,10 @@ static t_cylind		*cylind_intersection(t_data *data, t_ray *ray, double *dist)
 	while (tmp)
 	{
 		if (!intersection_cylinder(tmp, ray, dist))
-			current = tmp;
+		{
+			if (data->current != tmp)
+				current = tmp;
+		}
 		tmp = tmp->next;
 	}
 	return (current);
@@ -71,7 +80,10 @@ static t_cone		*cone_intersection(t_data *data, t_ray *ray, double *dist)
 	while (tmp)
 	{
 		if (!intersection_cone(tmp, ray, dist))
-			current = tmp;
+		{
+			if (data->current != tmp)
+				current = tmp;
+		}
 		tmp = tmp->next;
 	}
 	return (current);

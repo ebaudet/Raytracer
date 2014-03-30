@@ -22,6 +22,8 @@ DUCK || FUCK
 
 #type
 sphere
+#ref
+100
 #radius
 50
 #origin
@@ -51,6 +53,8 @@ origin
 
 #type
 sphere
+#ref
+100
 #radius
 30
 #origin

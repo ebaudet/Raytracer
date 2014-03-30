@@ -54,9 +54,13 @@ int		color_pixel(t_ray *rayon, double coef)
 	void		*inter;
 
 	d = data_init();
+	d->current = NULL;
 	inter = intersection(d, rayon, &coef);
 	if (inter != NULL && coef < 200000)
+	{
+		d->current = inter;
 		return (color_find(inter, rayon->d, coef));
+	}
 	return (0);
 }
 

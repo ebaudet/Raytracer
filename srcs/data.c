@@ -21,6 +21,7 @@ t_data	*data_init(void)
 	{
 		if (!(data = (t_data *)malloc(sizeof(t_data))))
 			ft_error("erreur malloc");
+		data->current = NULL;
 	}
 	return (data);
 }

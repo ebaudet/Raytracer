@@ -126,6 +126,7 @@ typedef struct		s_data
 	double			b;
 	int				win_size_x;
 	int				win_size_y;
+	void			*current;
 }					t_data;
 
 #endif
