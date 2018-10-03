@@ -19,10 +19,10 @@ FILES	= env.c error.c image.c main.c rtv1.c sphere.c vector.c ray.c hook.c \
 		vector_calculation2.c ft_set_ref.c
 SRCS	= $(addprefix srcs/, $(FILES))
 OBJS	= $(SRCS:srcs/%.c=.obj/%.o)
-INC		= -I includes -I libft/includes
+INC		= -I includes -I libft/includes -lm
 FLAGS	= -Wall -Wextra -Werror
 LIB		= -L libft -lft
-LIBMLX	= -L /usr/X11/lib -lmlx -lXext -lX11
+LIBMLX	= -I /usr/X11/include -L /usr/X11/lib -lmlx -lXext -lX11
 CC		= cc
 
 all: $(NAME)
