@@ -13,6 +13,27 @@
 #include <mlx.h>
 #include "rtv1.h"
 #include "libft.h"
+#include <stdio.h>
+
+int		eb_mlx_mouse(int button,int x,int y, void *p)
+{
+	t_win		*env;
+	t_data		*data;
+	t_ray		*rayon;
+	t_img		*img;
+
+	env = env_init();
+	data = data_init();
+	img = img_init();
+	data->debug = 1;
+	rayon = ray_new();
+	printf("Mouse in Win[%d], button %d at %dx%d.\n",env->win, button,x,y);
+	display_pixel(img, x, y, rayon);
+	img_del(img);
+	ray_del(rayon);
+	data->debug = 0;
+	return 0;
+}
 
 void	eb_mlx(void)
 {
@@ -23,6 +44,7 @@ void	eb_mlx(void)
 	img = img_init();
 	mlx_expose_hook(env->win, eb_expose_hook, img);
 	mlx_key_hook(env->win, eb_mlx_key_hook, NULL);
+	mlx_mouse_hook(env->win, eb_mlx_mouse, NULL);
 	mlx_loop(env->mlx);
 }
 

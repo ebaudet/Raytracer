@@ -35,10 +35,13 @@ int		color_find(void *object, t_vector *ray_dir, double coef)
 		{
 			color = color_lambert(object, light, &impact, color);
 			color = color_speculaire(object, light, &impact, color);
+			color = color_add(color, color_light(color, light->color), 30);
+			// color = color_add(color, light->color, 10);
+			// color = color_middle(color, light->color);
 		}
 		light = light->next;
 	}
-	color = color_reflexion(object, ray_dir, &impact, color);
+	// color = color_reflexion(object, ray_dir, &impact, color);
 	return (color);
 }
 

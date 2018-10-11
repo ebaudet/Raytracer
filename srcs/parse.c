@@ -19,6 +19,7 @@ void		ft_objects_init(t_data *data, char **line, int fd)
 	int		ret;
 
 	error_object = '0';
+	ret = 2;
 	while (ft_strcmp("##end", *line) != 0 && ret > 0)
 	{
 		if (ft_strcmp("#type", *line) == 0)

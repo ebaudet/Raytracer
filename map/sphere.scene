@@ -102,4 +102,16 @@ light
 0
 #end_object
 
+#type
+light
+#origin
+0
+5000
+-10000
+#color
+250
+250
+250
+#end_object
+
 ##end

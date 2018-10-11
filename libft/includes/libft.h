@@ -79,5 +79,6 @@ void	ft_putnbr_fd(int n, int fd);
 ** function bonus
 */
 int		get_next_line(int const fd, char **line);
+char	*ft_concat(const char *s1, const char *s2);
 
 #endif

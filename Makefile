@@ -16,19 +16,23 @@ FILES	= env.c error.c image.c main.c rtv1.c sphere.c vector.c ray.c hook.c \
 		parse.c cylinder.c normal.c tools.c ft_scene_init.c ft_set_sphere.c \
 		ft_set_plan.c ft_set_light.c ft_set_cylinder.c cone.c ft_set_cone.c \
 		color_effect.c color_calculation.c pixel_color.c \
-		vector_calculation2.c ft_set_ref.c
+		vector_calculation2.c ft_set_ref.c random.c debug.c
 SRCS	= $(addprefix srcs/, $(FILES))
 OBJS	= $(SRCS:srcs/%.c=.obj/%.o)
-INC		= -I includes -I libft/includes -lm
+INC		= -I includes -I libft/includes -lm -I /usr/X11/include
 FLAGS	= -Wall -Wextra -Werror
+FLAGS	=
 LIB		= -L libft -lft
-LIBMLX	= -I /usr/X11/include -L /usr/X11/lib -lmlx -lXext -lX11
+LIBMLX	= -L /usr/X11/lib -lmlx -lXext -lX11
 CC		= cc
 
-all: $(NAME)
+all: chmod $(NAME)
+
+chmod:
+	chmod -R +rw map/ srcs/ libft/ includes/
 
 $(NAME): libft_comp create_fold_obj $(OBJS)
-	@$(CC) $(FLAGS) $(SRCS) -o $(NAME) $(INC) $(LIB) $(LIBMLX)
+	$(CC) $(FLAGS) $(SRCS) -o $(NAME) $(INC) $(LIB) $(LIBMLX)
 	@echo "\n > \033[36m$(NAME)\033[m project compilation [\033[32mDONE\033[m]\n"
 
 .obj/%.o: srcs/%.c

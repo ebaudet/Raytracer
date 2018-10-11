@@ -13,9 +13,10 @@
 #ifndef RTV1_H
 # define RTV1_H
 
-# define WIDTH		1000
-# define HEIGHT		500
-# define KEY_ESC	65307
+# define WIDTH		1000			// largeur de la fenêtre
+# define HEIGHT		500				// hauteur de la fenêtre
+# define KEY_ESC	65307			// valeur numérique de la touche Escape
+# define DEBUG      1				// option pour le debug
 
 # include "structure.h"
 
@@ -216,5 +217,18 @@ char		type_object(void *ptr);
 void		ft_set_cone_ref(char *ref, char **line, int fd);
 void		ft_set_cylinder_ref(char *ref, char **line, int fd);
 void		ft_set_sphere_ref(char **line, int fd, char *ref);
+
+/*
+**	random.c
+*/
+void		rand_init();
+int			rand_limited(int min, int max);
+int			rand_percent(int percent, int flow);
+int			rand_color(int percent, int flow, int base_color);
+
+/*
+**	debug.c
+*/
+int			eb_debug(char *str);
 
 #endif

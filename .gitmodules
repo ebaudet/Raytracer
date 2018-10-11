@@ -1,0 +1,3 @@
+[submodule "libprintf"]
+	path = libprintf
+	url = https://github.com/ebaudet/printf.git

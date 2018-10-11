@@ -15,9 +15,11 @@
 #include <math.h>
 #include <fcntl.h>
 #include "rtv1.h"
+#include "libft.h"
 
 void	rtv1(void)
 {
+	rand_init();
 	init_scene();
 	eb_mlx();
 }
@@ -45,6 +47,7 @@ void	display_pixel(t_img *img, int x, int y, t_ray *rayon)
 	vector_set(rayon->d, ray_dir.x, ray_dir.y, ray_dir.z);
 	vector_normalize(rayon->d);
 	color = color_pixel(rayon, 200000);
+	eb_debug(ft_concat("couleur du pixel : ", ft_itoa(color)));
 	eb_put_pixel_to_img(img, x, y, color);
 }
 
@@ -52,6 +55,7 @@ int		color_pixel(t_ray *rayon, double coef)
 {
 	t_data		*d;
 	void		*inter;
+	int			color;
 
 	d = data_init();
 	d->current = NULL;
@@ -59,9 +63,13 @@ int		color_pixel(t_ray *rayon, double coef)
 	if (inter != NULL && coef < 200000)
 	{
 		d->current = inter;
-		return (color_find(inter, rayon->d, coef));
+		color = color_find(inter, rayon->d, coef);
+		// color = color_add(color, rand_color(90,100,color_norm(0,0,0)), 50);
+		return (color);
 	}
-	return (0);
+	// return 0;
+	// return (rand_color(1,1000,color_norm(0,0,0)));
+	return 1;
 }
 
 void	display_scene(t_img *img)

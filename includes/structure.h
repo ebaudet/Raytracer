@@ -127,6 +127,7 @@ typedef struct		s_data
 	int				win_size_x;
 	int				win_size_y;
 	void			*current;
+	int				debug;
 }					t_data;
 
 #endif
