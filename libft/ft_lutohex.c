@@ -20,6 +20,8 @@ char		*ft_lutohex(long unsigned int lu)
 
 	ft_memset(hexadecimalNumber, 0, 100);
 	i = 0;
+	if (lu == 0)
+		hexadecimalNumber[i++] = 0 + '0';
 	while (lu != 0)
 	{
 		temp = lu % 16;
