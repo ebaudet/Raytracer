@@ -38,7 +38,7 @@ static char		**create_string(char **strnew, char const *s, char c)
 		if (s[i])
 			i++;
 	}
-	strnew[j] = '\0';
+	strnew[j] = NULL;
 	return (strnew);
 }
 

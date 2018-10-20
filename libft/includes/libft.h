@@ -14,6 +14,7 @@
 # define LIBFT_H
 # define BUFF_SIZE 32
 # include <string.h>
+# include <stdarg.h>
 
 /*
 ** functions part 1
@@ -79,6 +80,13 @@ void	ft_putnbr_fd(int n, int fd);
 ** function bonus
 */
 int		get_next_line(int const fd, char **line);
-char	*ft_concat(const char *s1, const char *s2);
+char	*ft_concat2(const char *s1, const char *s2);
+char	*ft_concat2endl(const char *s1, const char *s2);
+char	*ft_concat2c(const char *s1, const char *s2, char c);
+char	*ft_concat(int nb_elem, ...);
+char	*ft_concatc(int nb_elem, ...);
+void	ft_strreverse(char *str);
+char	*ft_lutohex(long unsigned int lu);
+
 
 #endif

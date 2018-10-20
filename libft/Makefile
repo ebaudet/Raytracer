@@ -22,7 +22,7 @@ SRCS 	= ft_memset.c ft_bzero.c ft_memcpy.c ft_memccpy.c ft_memmove.c \
 		ft_strjoin.c ft_strtrim.c ft_strsplit.c ft_itoa.c \
 		ft_putchar.c ft_putstr.c ft_putendl.c ft_putnbr.c \
 		ft_putchar_fd.c ft_putstr_fd.c ft_putendl_fd.c ft_putnbr_fd.c \
-		get_next_line.c ft_concat.c
+		get_next_line.c ft_concat.c ft_strreverse.c ft_lutohex.c
 DIRSRC	= $(addprefix ./ ,$(SRCS))
 OBJS	= ${SRCS:.c=.o}
 INC		= ./includes/
@@ -37,7 +37,7 @@ all: $(NAME)
 $(NAME): $(OBJS)
 	@$(AR) $(NAME) $(OBJS)
 	@$(RANLIB) $(NAME)
-	@echo "\n\n > Compiling libft [\033[32mDONE\033[m]"
+	@echo "\n\n > Compilation \033[36mlibft\033[m [\033[32mDONE\033[m]"
 
 %.o: %.c
 	@$(CC) -c $< -o $@ $(FLAGS) -I $(INC)
