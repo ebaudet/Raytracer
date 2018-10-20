@@ -13,6 +13,7 @@
 #include <mlx.h>
 #include <stdlib.h>
 #include "rtv1.h"
+#include "libft.h"
 
 t_img		*img_init(void)
 {
@@ -22,7 +23,7 @@ t_img		*img_init(void)
 
 	data = data_init();
 	win = env_init();
-	img = (t_img *)malloc(sizeof(t_img));
+	img = (t_img *)ft_memalloc(sizeof(t_img));
 	img->img = mlx_new_image(win->mlx, data->win_size_x, data->win_size_y);
 	img->data = mlx_get_data_addr(img->img, &img->bpp, &img->size_line
 		, &img->endian);

@@ -16,9 +16,11 @@
 # define WIDTH		1000			// largeur de la fenêtre
 # define HEIGHT		500				// hauteur de la fenêtre
 # define KEY_ESC	65307			// valeur numérique de la touche Escape
-# define DEBUG      1				// option pour le debug
+# define KEY_Q		113				// valeur numérique de la touche Q
+# define DEBUG		1				// option pour le debug
 
 # include "structure.h"
+#include "libftprintf.h"
 
 /*
 ** error.c
@@ -124,6 +126,7 @@ void		ray_del(t_ray *rayon);
 void		eb_mlx(void);
 int			eb_mlx_key_hook(int keycode);
 int			eb_expose_hook(t_img *img);
+void		eb_waiting(unsigned int time);
 
 /*
 ** data.c
@@ -229,6 +232,13 @@ int			rand_color(int percent, int flow, int base_color);
 /*
 **	debug.c
 */
-int			eb_debug(char *str);
+int			eb_debug(char *str, int free_str);
+
+/*
+**	help.c
+*/
+void 		eb_help_text(char *str);
+void		eb_help_atextf(char *str);
+void		eb_help();
 
 #endif

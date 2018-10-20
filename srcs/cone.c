@@ -13,6 +13,7 @@
 #include <stdlib.h>
 #include <math.h>
 #include "rtv1.h"
+#include "libft.h"
 
 void		cone_new(t_vector *pos, double radius, int color, t_vector *dir)
 {
@@ -21,7 +22,7 @@ void		cone_new(t_vector *pos, double radius, int color, t_vector *dir)
 	t_cone	*tmp;
 
 	data = data_init();
-	if ((cone = (t_cone *)malloc(sizeof(t_cone))) == NULL)
+	if ((cone = (t_cone *)ft_memalloc(sizeof(t_cone))) == NULL)
 		ft_error("error malloc");
 	cone->type = 'o';
 	cone->color = color;

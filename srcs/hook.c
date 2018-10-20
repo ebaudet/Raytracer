@@ -13,7 +13,6 @@
 #include <mlx.h>
 #include "rtv1.h"
 #include "libft.h"
-#include <stdio.h>
 
 int		eb_mlx_mouse(int button,int x,int y, void *p)
 {
@@ -24,13 +23,20 @@ int		eb_mlx_mouse(int button,int x,int y, void *p)
 
 	env = env_init();
 	data = data_init();
-	img = img_init();
 	data->debug = 1;
-	rayon = ray_new();
-	printf("Mouse in Win[%d], button %d at %dx%d.\n",env->win, button,x,y);
-	display_pixel(img, x, y, rayon);
-	img_del(img);
-	ray_del(rayon);
+	ft_printf("Mouse in Win[%p], button %d at %dx%d.\n",env->win, button, x, y);
+	if (button == 1)
+	{
+		rayon = ray_new();
+		img = img_init();
+
+		eb_help_text(ft_sprintf("Mouse in Win[%p]\nbutton %d at %dx%d.\n",
+			env->win, button, x, y));
+		display_pixel(img, x, y, rayon);
+		eb_help();
+		img_del(img);
+		ray_del(rayon);
+	}
 	data->debug = 0;
 	return 0;
 }
@@ -39,9 +45,14 @@ void	eb_mlx(void)
 {
 	t_win		*env;
 	t_img		*img;
+	t_data		*data;
 
 	env = env_init();
 	img = img_init();
+	data = data_init();
+	eb_waiting(0);
+	display_scene(img);
+	data->img = img;
 	mlx_expose_hook(env->win, eb_expose_hook, img);
 	mlx_key_hook(env->win, eb_mlx_key_hook, NULL);
 	mlx_mouse_hook(env->win, eb_mlx_mouse, NULL);
@@ -50,9 +61,21 @@ void	eb_mlx(void)
 
 int		eb_mlx_key_hook(int keycode)
 {
-	if (keycode == KEY_ESC)
-	{
+	t_data		*data;
+
+
+	data = data_init();
+	// ft_printf("keycode : %d\n", keycode);
+	if (keycode == KEY_ESC || keycode == KEY_Q)
 		ft_error("Merci pour le poisson.");
+	if (keycode == 104) {
+		if (data->help == 0) {
+			data->help = 1;
+			eb_help();
+		} else {
+			eb_expose_hook(data->img);
+			data->help = 0;
+		}
 	}
 	return (0);
 }
@@ -62,7 +85,24 @@ int		eb_expose_hook(t_img *img)
 	t_win		*env;
 
 	env = env_init();
-	display_scene(img);
 	mlx_put_image_to_window(env->mlx, env->win, img->img, 0, 0);
 	return (0);
+}
+
+void	eb_waiting(unsigned int time)
+{
+	t_win		*env;
+	t_data		*data;
+	char		*str;
+	char		*waiting_time;
+
+	env = env_init();
+	data = data_init();
+	waiting_time = ft_strnew(time);
+	waiting_time = ft_memset(waiting_time, '.', time);
+	str = ft_concat2("Scene chargement", waiting_time);
+	mlx_string_put(env->mlx, env->win, data->win_size_x/2, data->win_size_y/2,
+		0xFF99FF,str);
+	free(str);
+	free(waiting_time);
 }

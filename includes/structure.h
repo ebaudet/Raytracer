@@ -128,6 +128,9 @@ typedef struct		s_data
 	int				win_size_y;
 	void			*current;
 	int				debug;
+	int				help;
+	char			*help_text;
+	t_img			*img;
 }					t_data;
 
 #endif

@@ -12,12 +12,13 @@
 
 #include <stdlib.h>
 #include "rtv1.h"
+#include "libft.h"
 
 t_vector	*vector_new(double x, double y, double z)
 {
 	t_vector	*v;
 
-	v = (t_vector *)malloc(sizeof(t_vector));
+	v = (t_vector *)ft_memalloc(sizeof(t_vector));
 	v->x = x;
 	v->y = y;
 	v->z = z;
@@ -51,7 +52,7 @@ t_vector	*vector_copy(t_vector *a)
 {
 	t_vector	*v;
 
-	v = (t_vector *)malloc(sizeof(t_vector));
+	v = (t_vector *)ft_memalloc(sizeof(t_vector));
 	v->x = a->x;
 	v->y = a->y;
 	v->z = a->z;

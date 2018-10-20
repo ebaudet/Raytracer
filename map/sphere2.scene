@@ -8,8 +8,8 @@
 Sphere.scene
 
 #window
-1500
 1000
+500
 
 #cam
 0

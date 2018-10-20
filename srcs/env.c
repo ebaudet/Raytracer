@@ -13,6 +13,7 @@
 #include <mlx.h>
 #include <stdlib.h>
 #include "rtv1.h"
+#include "libft.h"
 
 t_win	*env_init(void)
 {
@@ -22,7 +23,7 @@ t_win	*env_init(void)
 	d = data_init();
 	if (win == NULL)
 	{
-		if (!(win = (t_win *)malloc(sizeof(t_win))))
+		if (!(win = (t_win *)ft_memalloc(sizeof(t_win))))
 			ft_error("erreur malloc");
 		win->mlx = mlx_init();
 		win->win = mlx_new_window(win->mlx, d->win_size_x, d->win_size_y

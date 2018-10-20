@@ -13,6 +13,7 @@
 #include <math.h>
 #include <stdlib.h>
 #include "rtv1.h"
+#include "libft.h"
 
 void		vector_normalize(t_vector *v)
 {
@@ -33,7 +34,7 @@ t_vector	*vector_sub(t_vector *a, t_vector *b)
 {
 	t_vector	*v;
 
-	v = (t_vector *)malloc(sizeof(t_vector));
+	v = (t_vector *)ft_memalloc(sizeof(t_vector));
 	v->x = a->x - b->x;
 	v->y = a->y - b->y;
 	v->z = a->z - b->z;

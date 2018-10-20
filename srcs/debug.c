@@ -14,7 +14,7 @@
 #include "rtv1.h"
 #include "libft.h"
 
-int eb_debug(char *str)
+int eb_debug(char *str, int free_str)
 {
 	t_data	*data;
 
@@ -23,6 +23,11 @@ int eb_debug(char *str)
 		return 0;
 
 	ft_putstr("[DEBUG] ");
+
 	ft_putendl(str);
+	if (free_str)
+		eb_help_atextf(str);
+	else
+		eb_help_atext(str);
 	return 1;
 }

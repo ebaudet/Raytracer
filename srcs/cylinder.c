@@ -13,6 +13,7 @@
 #include <stdlib.h>
 #include <math.h>
 #include "rtv1.h"
+#include "libft.h"
 
 void		cylinder_new(t_vector *pos, double radius, int color, t_vector *dir)
 {
@@ -21,7 +22,7 @@ void		cylinder_new(t_vector *pos, double radius, int color, t_vector *dir)
 	t_cylind	*tmp;
 
 	data = data_init();
-	if ((cylinder = (t_cylind *)malloc(sizeof(t_cylind))) == NULL)
+	if ((cylinder = (t_cylind *)ft_memalloc(sizeof(t_cylind))) == NULL)
 		ft_error("error malloc");
 	cylinder->type = 'c';
 	cylinder->color = color;

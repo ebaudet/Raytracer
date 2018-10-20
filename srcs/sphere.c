@@ -13,6 +13,7 @@
 #include <stdlib.h>
 #include <math.h>
 #include "rtv1.h"
+#include "libft.h"
 
 void		sphere_new(t_vector *position, double radius, int color)
 {
@@ -21,7 +22,7 @@ void		sphere_new(t_vector *position, double radius, int color)
 	t_sphere	*tmp;
 
 	data = data_init();
-	if ((sphere = (t_sphere *)malloc(sizeof(t_sphere))) == NULL)
+	if ((sphere = (t_sphere *)ft_memalloc(sizeof(t_sphere))) == NULL)
 		ft_error("error malloc");
 	sphere->type = 's';
 	sphere->color = color;

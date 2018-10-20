@@ -12,12 +12,13 @@
 
 #include <stdlib.h>
 #include "rtv1.h"
+#include "libft.h"
 
 t_ray	*ray_new(void)
 {
 	t_ray	*rayon;
 
-	rayon = (t_ray	*)malloc(sizeof(t_ray));
+	rayon = (t_ray	*)ft_memalloc(sizeof(t_ray));
 	rayon->o = vector_new(0, 0, 0);
 	rayon->d = vector_new(0, 0, 0);
 	return (rayon);

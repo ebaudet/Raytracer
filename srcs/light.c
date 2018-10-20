@@ -12,6 +12,7 @@
 
 #include <stdlib.h>
 #include "rtv1.h"
+#include "libft.h"
 
 void		light_new(t_vector *position, int color)
 {
@@ -20,7 +21,7 @@ void		light_new(t_vector *position, int color)
 	t_light		*tmp;
 
 	data = data_init();
-	light = (t_light *)malloc(sizeof(t_light));
+	light = (t_light *)ft_memalloc(sizeof(t_light));
 	light->pos = position;
 	light->color = color;
 	light->next = NULL;

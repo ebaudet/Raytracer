@@ -12,6 +12,7 @@
 
 #include <stdlib.h>
 #include "rtv1.h"
+#include "libft.h"
 
 void		plan_new(t_vector *normal, int constante, int color)
 {
@@ -20,7 +21,7 @@ void		plan_new(t_vector *normal, int constante, int color)
 	t_plan		*tmp;
 
 	data = data_init();
-	if ((plan = (t_plan *)malloc(sizeof(t_plan))) == NULL)
+	if ((plan = (t_plan *)ft_memalloc(sizeof(t_plan))) == NULL)
 		ft_error("error malloc");
 	plan->type = 'p';
 	plan->color = color;
