@@ -65,3 +65,17 @@ int			intersection_plan(t_plan *plan, t_ray *ray, double *t)
 	}
 	return (-1);
 }
+
+char		*print_plan(t_plan *p)
+{
+	char	*str;
+
+	str = ft_sprintf("Type Objet : Plan\n"
+	                 " - couleur :        %p\n"
+	                 " - vecteur normal : (%f,%f,%f)\n"
+	                 " - constante :      %d\n"
+	                 " - reflet :         %d",
+	                 p->color, p->normal->x, p->normal->y, p->normal->z,
+	                 p->constante, (int)p->ref);
+	return str;
+}

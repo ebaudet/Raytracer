@@ -88,3 +88,32 @@ char		type_object(void *ptr)
 	}
 	return (0);
 }
+
+int			ft_hextod(char *hex)
+{
+	int		result;
+	int		lenght;
+	char	c;
+	int 	i;
+
+	lenght = ft_strlen(hex);
+	if (lenght < 3 || hex[0] != '0' || hex[1] != 'x') {
+		return -1;
+	}
+	result = 0;
+	i = 0;
+	while (lenght - ++i >= 2) {
+		c = hex[lenght - i];
+		if (c >= '0' && c <= '9')
+			result += (c - '0') * pow(16, i - 1);
+		else if (c >= 'a' && c <= 'f')
+			result += (c - 'a' + 10) * pow(16, i - 1);
+		else if (c >= 'A' && c <= 'F')
+			result += (c - 'A' + 10) * pow(16, i - 1);
+		else {
+			return -1;
+		}
+	}
+	return result;
+}
+

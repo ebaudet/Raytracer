@@ -87,6 +87,11 @@ char	*ft_concat(int nb_elem, ...);
 char	*ft_concatc(int nb_elem, ...);
 void	ft_strreverse(char *str);
 char	*ft_lutohex(long unsigned int lu);
+int		ft_isspace(int c);
+double	ft_atof(const char *str);
+int		ft_abs(int i);
+double	ft_fabs(double i);
+char	*ft_dtoa(double d, unsigned int precision);
 
 
 #endif

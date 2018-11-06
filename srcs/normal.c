@@ -21,7 +21,8 @@ void	vect_normal(t_vector *normal, t_vector *impact, void *object)
 	if (type_object(object) == 'p')
 	{
 		vector_set_copy(normal, ((t_plan *)object)->normal);
-		vector_mult(normal, normal, -1);
+		if (vector_dot(normal, impact) >= 0)
+			vector_mult(normal, normal, -1);
 	}
 	if (type_object(object) == 'c')
 	{

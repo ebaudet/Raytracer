@@ -1,6 +1,6 @@
-##-----------------------------##-----------------------------##----------------------------------##
-									TEST SCENE : by gpetrov
-##-----------------------------##-----------------------------##----------------------------------##
+##-----------------------------##----------------------------------##
+						TestColor.scene : by gpetrov
+##-----------------------------##----------------------------------##
 
 ##scene
 
@@ -31,10 +31,7 @@ sphere
 0
 -1000
 #color
-255
-114
-96
-
+0xFF7260
 #end_object
 
 ##type
@@ -46,26 +43,22 @@ origin
 100
 100
 #color
-42
-142
-242
+0x2A8EF2
 #end_object
 
-#type
-sphere
-#ref
-100
-#radius
-30
-#origin
-0
-50
--1500
-#color
-100
-100
-100
-#end_object
+;#type
+;sphere
+;#ref
+;100
+;#radius
+;30
+;#origin
+;0
+;50
+;-1500
+;#color
+;0x646464
+;#end_object
 
 #type
 sphere
@@ -76,9 +69,9 @@ sphere
 50
 -900
 #color
-98
-134
-141
+0x62868D
+#ref
+100
 #end_object
 
 #type
@@ -90,10 +83,7 @@ sphere
 0
 -800
 #color
-18
-151
-147
-
+0x129793
 #end_object
 
 #type
@@ -105,12 +95,9 @@ plan
 1
 0
 #color
-50
-50
-50
-##189
-##189
-##189
+0x323232
+#ref
+100
 #end_object
 
 #type
@@ -122,13 +109,7 @@ plan
 0
 1
 #color
-180
-50
-50
-##189
-##189
-##189
-
+0xB43232
 #end_object
 
 #type
@@ -140,10 +121,7 @@ sphere
 -50
 -700
 #color
-255
-144
-9
-
+0xFF9009
 #end_object
 
 #type
@@ -153,9 +131,7 @@ light
 -100
 -1050
 #color
-0
-255
-0
+0x00FF00
 #end_object
 
 #type
@@ -165,9 +141,7 @@ light
 50
 -900
 #color
-0
-0
-255
+0x0000FF
 #end_object
 
 #type
@@ -177,9 +151,7 @@ light
 -400
 -2000
 #color
-255
-0
-0
+0xFF0000
 #end_object
 
 #type
@@ -188,19 +160,14 @@ cone
 -100
 0
 -500
-
 #dir
 0
 0
 1
 #color
-200
-200
-200
-
+0xC8C8C8
 #const
 0.8
-
 #end_object
 
 #type
@@ -216,27 +183,25 @@ cylinder
 #const
 80
 #color
-255
-144
-9
+0xFF9009
+#ref
+100
 #end_object
 
-####type
-###cylinder
-####origin
-###-500
-###500
-###-800
-####dir
-###0
-###0
-###1
-####const
-###50
-####color
-###193
-###225
-###166
-####end_object
+;#type
+;cylinder
+;#origin
+;-500
+;500
+;-800
+;#dir
+;0
+;0
+;1
+;#const
+;50
+;#color
+;0xC1E1A6
+;#end_object
 
 ##end

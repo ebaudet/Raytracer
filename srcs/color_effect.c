@@ -49,3 +49,15 @@ int		color_light(int color, int color2)
 	color = color_norm(red, green, blue);
 	return (color);
 }
+
+int		color_filter(int color, int light)
+{
+	int		red;
+	int		green;
+	int		blue;
+
+	red = ((color >> 16) % 256) * ((light >> 16) % 256) / 256;
+	green = ((color >> 8) % 256) * ((light >> 8) % 256) / 256;
+	blue = (color % 256) * (light % 256) / 256;
+	return (color_norm(red, green, blue));
+}

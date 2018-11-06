@@ -24,12 +24,11 @@ int		eb_mlx_mouse(int button,int x,int y, void *p)
 	env = env_init();
 	data = data_init();
 	data->debug = 1;
-	ft_printf("Mouse in Win[%p], button %d at %dx%d.\n",env->win, button, x, y);
+	// ft_printf("Mouse in Win[%p], button %d at %dx%d.\n",env->win, button, x, y);
 	if (button == 1)
 	{
 		rayon = ray_new();
 		img = img_init();
-
 		eb_help_text(ft_sprintf("Mouse in Win[%p]\nbutton %d at %dx%d.\n",
 			env->win, button, x, y));
 		display_pixel(img, x, y, rayon);
@@ -63,9 +62,7 @@ int		eb_mlx_key_hook(int keycode)
 {
 	t_data		*data;
 
-
 	data = data_init();
-	// ft_printf("keycode : %d\n", keycode);
 	if (keycode == KEY_ESC || keycode == KEY_Q)
 		ft_error("Merci pour le poisson.");
 	if (keycode == 104) {

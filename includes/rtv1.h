@@ -18,9 +18,10 @@
 # define KEY_ESC	65307			// valeur numérique de la touche Escape
 # define KEY_Q		113				// valeur numérique de la touche Q
 # define DEBUG		1				// option pour le debug
+# define DEPTH		4
 
 # include "structure.h"
-#include "libftprintf.h"
+# include "libftprintf.h"
 
 /*
 ** error.c
@@ -33,7 +34,7 @@ void		ft_error(char *str);
 void		rtv1(void);
 void		init_scene(void);
 void		display_pixel(t_img *img, int x, int y, t_ray *rayon);
-int			color_pixel(t_ray *rayon, double coef);
+int			color_pixel(t_ray *rayon, double coef, int depth);
 void		display_scene(t_img *img);
 
 /*
@@ -72,6 +73,7 @@ double		dist_ab(t_vector *a, t_vector *b);
 void		sphere_new(t_vector *position, double radius, int color);
 void		sphere_del(t_sphere *sphere);
 int			intersection_sphere(t_sphere *sphere, t_ray *ray, double *t);
+char		*print_sphere(t_sphere *s);
 
 /*
 ** plan.c
@@ -79,7 +81,7 @@ int			intersection_sphere(t_sphere *sphere, t_ray *ray, double *t);
 void		plan_new(t_vector *normal, int constante, int color);
 void		plan_del(t_plan *plan);
 int			intersection_plan(t_plan *plan, t_ray *ray, double *t);
-
+char		*print_plan(t_plan *p);
 /*
 ** cylinder.c
 */
@@ -87,6 +89,7 @@ void		cylinder_new(t_vector *pos, double radius, int color
 				, t_vector *dir);
 void		cylinder_del(t_cylind *cylinder);
 int			intersection_cylinder(t_cylind *cylinder, t_ray *ray, double *t);
+char		*print_cylinder(t_cylind *c);
 
 /*
 **	cone.c
@@ -94,6 +97,7 @@ int			intersection_cylinder(t_cylind *cylinder, t_ray *ray, double *t);
 void		cone_new(t_vector *pos, double radius, int color, t_vector *dir);
 void		cone_del(t_cone *cone);
 int			intersection_cone(t_cone *cone, t_ray *ray, double *t);
+char		*print_cone(t_cone *o);
 
 /*
 ** light.c
@@ -136,11 +140,11 @@ t_data		*data_init(void);
 /*
 ** pixel_color.c
 */
-int			color_find(void *object, t_vector *ray_dir, double coef);
+int			color_find(void *object, t_vector *ray_dir, double coef, int depth);
 int			color_speculaire(void *object, t_light *light, t_vector *impact
 	, int color);
 int			color_reflexion(void *object, t_vector *ray_dir, t_vector *impact
-	, int color);
+	, int color, int depth);
 int			color_lambert(void *object, t_light *light, t_vector *impact
 	, int color);
 
@@ -149,7 +153,7 @@ int			color_lambert(void *object, t_light *light, t_vector *impact
 */
 int			color_mult(int color, double mult);
 int			color_add(int color1, int color2, int rate);
-int			color_middle(int color1, int color2);
+int			color_middle(int color1, int color2, int rate);
 int			color_norm(int red, int green, int blue);
 
 /*
@@ -164,11 +168,13 @@ int			color_light(int color, int color2);
 int			get_color(void *object);
 int			color_set(int red, int green, int blue, char reflect);
 void		calcul_impact(t_vector *impact, t_vector *ray_dir, double coef);
+int			color_filter(int color, int light);
 
 /*
 ** intersection.c
 */
 void		*intersection(t_data *data, t_ray *ray, double *dist);
+
 
 /*
 **	parse.c
@@ -213,6 +219,7 @@ double		ft_atod(char **str);
 int			ft_check_if_nbr(char *str);
 void		ft_error_init(char *origin, char *dir, char *color, char *co);
 char		type_object(void *ptr);
+int			ft_hextod(char *hex);
 
 /*
 **	ft_set_ref.c
@@ -233,12 +240,15 @@ int			rand_color(int percent, int flow, int base_color);
 **	debug.c
 */
 int			eb_debug(char *str, int free_str);
+void		eb_debug_object(void *object);
+
 
 /*
 **	help.c
 */
-void 		eb_help_text(char *str);
+void		eb_help_atext(char *str);
 void		eb_help_atextf(char *str);
+void 		eb_help_text(char *str);
 void		eb_help();
 
 #endif

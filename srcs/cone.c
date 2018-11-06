@@ -79,3 +79,20 @@ int			intersection_cone(t_cone *cone, t_ray *ray, double *t)
 	}
 	return (-1);
 }
+
+char		*print_cone(t_cone *o)
+{
+	char	*str;
+
+	str = ft_sprintf("Type Objet : Cone\n"
+	                 " - couleur :   %p\n"
+	                 " - position :  (%f,%f,%f)\n"
+	                 " - rayon :     %f\n"
+	                 " - direction : (%f,%f,%f)\n"
+	                 " - reflet :    %d",
+	                 o->color, o->pos->x, o->pos->y,
+	                 o->pos->z, o->radius, o->dir->x, o->dir->y,
+	                 o->dir->z, (int)o->ref);
+	return str;
+}
+

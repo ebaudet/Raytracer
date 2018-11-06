@@ -75,3 +75,16 @@ int			intersection_sphere(t_sphere *sphere, t_ray *ray, double *t)
 		return (0);
 	return (-1);
 }
+
+char		*print_sphere(t_sphere *s)
+{
+	char	*str;
+
+	str = ft_sprintf("Type Objet : Sphere\n"
+	                 " - couleur :  %p\n"
+	                 " - position : (%f,%f,%f)\n"
+	                 " - rayon :    %f\n"
+	                 " - reflet :   %d", s->color, s->pos->x, s->pos->y,
+	                 s->pos->z, s->radius, (int)s->ref);
+	return str;
+}

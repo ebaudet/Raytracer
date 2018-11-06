@@ -40,7 +40,7 @@ static void		ft_scene_init_cam(t_data *data, char **line, int fd)
 	if (ft_check_if_nbr(*line) == -1)
 		ft_error("[ERROR SCENE] - cam_z is not a digit");
 	data->z = ft_atod(line);
-	data->cam = vector_new(data->x, data->y, -(1000 / (2 * tan(M_PI / 12))));
+	data->cam = vector_new(data->x, data->y, data->z - 1800);
 }
 
 void			ft_scene_init(t_data *data, char **line, int fd)

@@ -18,7 +18,7 @@ int		get_color(void *object)
 	int		color;
 
 	color = ((t_struct *)object)->color;
-	color = color_shadow(color, 0.2);
+	// color = color_shadow(color, 0.2);
 	return (color);
 }
 

@@ -39,18 +39,15 @@ static void		ft_set_plan_origin(t_data *data, char **line, int fd)
 
 static void		ft_set_plan_color(t_data *data, char **line, int fd)
 {
+	int		color;
+
 	get_next_line(fd, line);
-	if (ft_check_if_nbr(*line) == -1)
-		ft_error("[ERROR SCENE] - Plan's color RED is not a digit");
-	data->x2 = (double)ft_atoi(*line);
-	get_next_line(fd, line);
-	if (ft_check_if_nbr(*line) == -1)
-		ft_error("[ERROR SCENE] - Plan's color GREEN is not a digit");
-	data->y2 = (double)ft_atoi(*line);
-	get_next_line(fd, line);
-	if (ft_check_if_nbr(*line) == -1)
-		ft_error("[ERROR SCENE] - Plan's color BLUE is not a digit");
-	data->z2 = (double)ft_atoi(*line);
+	color = ft_hextod(*line);
+	if (color == -1)
+		ft_error("[ERROR SCENE] - Plan's color is not hexadecimal");
+	data->x2 = (double)((color >> 16) % 256);
+	data->y2 = (double)((color >> 8) % 256);
+	data->z2 = (double)(color % 256);
 }
 
 static void		ft_set_plan_ref(char *ref, char **line, int fd)

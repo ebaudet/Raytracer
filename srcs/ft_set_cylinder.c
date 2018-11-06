@@ -55,18 +55,15 @@ static void		ft_set_cylinder_const(int *cons, char **line, int fd)
 
 static void		ft_set_cylinder_color(t_data *data, char **line, int fd)
 {
+	int		color;
+
 	get_next_line(fd, line);
-	if (ft_check_if_nbr(*line) == -1)
-		ft_error("[ERROR SCENE] - Cylinder's color RED is not a digit");
-	data->r = (double)ft_atoi(*line);
-	get_next_line(fd, line);
-	if (ft_check_if_nbr(*line) == -1)
-		ft_error("[ERROR SCENE] - Cylinder's color GREEN is not a digit");
-	data->g = (double)ft_atoi(*line);
-	get_next_line(fd, line);
-	if (ft_check_if_nbr(*line) == -1)
-		ft_error("[ERROR SCENE] - Cylinder's color BLUE is not a digit");
-	data->b = (double)ft_atoi(*line);
+	color = ft_hextod(*line);
+	if (color == -1)
+		ft_error("[ERROR SCENE] - Cylinder's color is not hexadecimal");
+	data->r = (double)((color >> 16) % 256);
+	data->g = (double)((color >> 8) % 256);
+	data->b = (double)(color % 256);
 }
 
 void			ft_set_cylinder(t_data *data, char **line, int fd)

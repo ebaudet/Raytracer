@@ -80,3 +80,19 @@ int			intersection_cylinder(t_cylind *cylinder, t_ray *ray, double *t)
 	}
 	return (-1);
 }
+
+char		*print_cylinder(t_cylind *c)
+{
+	char	*str;
+
+	str = ft_sprintf("Type Objet : Cylindre\n"
+	                 " - couleur :   %p\n"
+	                 " - position :  (%f,%f,%f)\n"
+	                 " - rayon :     %f\n"
+	                 " - direction : (%f,%f,%f)\n"
+	                 " - reflet :    %d",
+	                 c->color, c->pos->x, c->pos->y,
+	                 c->pos->z, c->radius, c->dir->x, c->dir->y,
+	                 c->dir->z, (int)c->ref);
+	return str;
+}

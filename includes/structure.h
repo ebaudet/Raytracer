@@ -34,16 +34,15 @@ typedef struct		s_ray
 	t_vector		*d;
 }					t_ray;
 
-typedef struct		s_cone
+typedef struct		s_sphere
 {
 	char			type;
 	int				color;
 	char			ref;
 	t_vector		*pos;
 	double			radius;
-	t_vector		*dir;
-	struct s_cone	*next;
-}					t_cone;
+	struct s_sphere	*next;
+}					t_sphere;
 
 typedef struct		s_plan
 {
@@ -55,16 +54,6 @@ typedef struct		s_plan
 	struct s_plan	*next;
 }					t_plan;
 
-typedef struct		s_sphere
-{
-	char			type;
-	int				color;
-	char			ref;
-	t_vector		*pos;
-	double			radius;
-	struct s_sphere	*next;
-}					t_sphere;
-
 typedef struct		s_cylind
 {
 	char			type;
@@ -75,6 +64,17 @@ typedef struct		s_cylind
 	t_vector		*dir;
 	struct s_cylind	*next;
 }					t_cylind;
+
+typedef struct		s_cone
+{
+	char			type;
+	int				color;
+	char			ref;
+	t_vector		*pos;
+	double			radius;
+	t_vector		*dir;
+	struct s_cone	*next;
+}					t_cone;
 
 typedef struct		s_light
 {

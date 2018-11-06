@@ -1,11 +1,11 @@
-##-----------------------------##-----------------------------##----------------------------------##
-									TEST SCENE : by gpetrov
-##-----------------------------##-----------------------------##----------------------------------##
+##-----------------------------##----------------------------------##
+						cylindre.scene : by gpetrov
+##-----------------------------##----------------------------------##
 
 ##scene
 
 #name
-FUCK
+cylindre.scene
 
 #window
 1000
@@ -27,9 +27,7 @@ light
 -200
 -1000
 #color
-250
-250
-250
+0xFAFAFA
 #end_object
 
 #type
@@ -39,9 +37,7 @@ light
 -100
 0
 #color
-250
-250
-250
+0xFAFAFA
 #end_object
 
 #type
@@ -51,9 +47,7 @@ light
 200
 -1000
 #color
-250
-250
-250
+0xFAFAFA
 #end_object
 
 #type
@@ -65,9 +59,9 @@ sphere
 50
 -1500
 #color
-0
-255
-0
+0x00FF00
+#ref
+100
 #end_object
 
 #type
@@ -79,9 +73,9 @@ sphere
 50
 1000
 #color
-0
-0
-255
+0x0000FF
+#ref
+100
 #end_object
 
 #type
@@ -97,9 +91,27 @@ cylinder
 #const
 100
 #color
-255
+0xFF0000
+#ref
+100
+#end_object
+
+#type
+cylinder
+#origin
+-500
+0
+1500
+#dir
+1
 0
 0
+#const
+100
+#color
+0xFFFFFF
+#ref
+100
 #end_object
 
 

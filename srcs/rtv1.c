@@ -46,16 +46,12 @@ void	display_pixel(t_img *img, int x, int y, t_ray *rayon)
 	vector_set(rayon->o, d->cam->x, d->cam->y, d->cam->z);
 	vector_set(rayon->d, ray_dir.x, ray_dir.y, ray_dir.z);
 	vector_normalize(rayon->d);
-	color = color_pixel(rayon, 200000);
-	eb_debug(ft_concat2("couleur du pixel : ", ft_itoa(color)), 1);
-
-	// @todo : voir pourquoi ft_concat
-	eb_debug(ft_concat(3, "couleur du pixel : ", "salut", "chouette"), 0);
-	eb_debug(ft_concatc(3, '-', "couleur du pixel : ", "salut", "chouette"), 0);
+	color = color_pixel(rayon, 200000, DEPTH);
+	eb_debug(ft_concat2("couleur du pixel : ", ft_lutohex(color)), 1);
 	eb_put_pixel_to_img(img, x, y, color);
 }
 
-int		color_pixel(t_ray *rayon, double coef)
+int		color_pixel(t_ray *rayon, double coef, int depth)
 {
 	t_data		*d;
 	void		*inter;
@@ -66,14 +62,14 @@ int		color_pixel(t_ray *rayon, double coef)
 	inter = intersection(d, rayon, &coef);
 	if (inter != NULL && coef < 200000)
 	{
+		eb_debug_object(inter);
 		d->current = inter;
-		color = color_find(inter, rayon->d, coef);
-		// color = color_add(color, rand_color(90,100,color_norm(0,0,0)), 50);
+		color = color_find(inter, rayon->d, coef, depth);
 		return (color);
 	}
-	// return 0;
-	return (rand_color(1,1000,color_norm(0,0,0)));
-	return 1;
+	if (depth < DEPTH)
+		return 0; // no stars for reflect part.
+	return (rand_color(1, 1000, color_norm(0,0,0)));
 }
 
 void	display_scene(t_img *img)

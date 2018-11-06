@@ -14,49 +14,59 @@
 
 int		color_mult(int color, double mult)
 {
-	int		red;
-	int		green;
-	int		blue;
+	double		red;
+	double		green;
+	double		blue;
 
-	mult = (mult < 0 ? 0 : mult);
+	mult = (mult < 0.0 ? 0 : mult);
 	red = (color >> 16) % 256;
 	green = (color >> 8) % 256;
 	blue = color % 256;
-	red += red * mult;
-	green += green * mult;
-	blue += blue * mult;
-	color = color_norm(red, green, blue);
+	red = red * mult;
+	green = green * mult;
+	blue = blue * mult;
+	color = color_norm((int)red, (int)green, (int)blue);
 	return (color);
 }
 
 int		color_add(int color1, int color2, int rate)
 {
-	int		red;
-	int		green;
-	int		blue;
+	double		red;
+	double		green;
+	double		blue;
 
 	rate = (rate > 100 ? 100 : rate);
 	rate = (rate < 0 ? 0 : rate);
-	red = (int)(((double)(((color1 >> 16) % 256) * (100 - rate)) / 100)
-		+ ((double)(((color2 >> 16) % 256) * rate) / 100));
-	green = (int)((double)((((color1 >> 8) % 256) * (100 - rate)) / 100)
-		+ ((double)(((color2 >> 8) % 256) * rate) / 100));
-	blue = (int)((double)(((color1 % 256) * (100 - rate)) / 100)
-		+ ((double)((color2 % 256) * rate) / 100));
-	color1 = color_norm(red, green, blue);
+	red = (((int)color1 >> 16) % 256)
+		+ (((int)color2 >> 16) % 256) * ((double)rate / 100);
+	green = (((int)color1 >> 8) % 256)
+		+ (((int)color2 >> 8) % 256) * ((double)rate / 100);
+	blue = ((int)color1 % 256) + ((int)color2 % 256) * ((double)rate / 100);
+	color1 = color_norm((int)red, (int)green, (int)blue);
 	return (color1);
 }
 
-int		color_middle(int color1, int color2)
+/*
+ * color_midle :
+ * rate should be between 0 and 100.
+ * Define how muche color1 and color2 we put.
+ * return color1 (100 - rate)%  and color2 rate%
+ */
+int		color_middle(int color1, int color2, int rate)
 {
-	int		red;
-	int		green;
-	int		blue;
+	double		red;
+	double		green;
+	double		blue;
 
-	red = ((color1 >> 16) % 256 + (color2 >> 16) % 256) / 2;
-	green = ((color1 >> 8) % 256 + (color2 >> 8) % 256) / 2;
-	blue = (color1 % 256 + color2 % 256) / 2;
-	color1 = color_norm(red, green, blue);
+	rate = (rate > 100 ? 100 : rate);
+	rate = (rate < 0 ? 0 : rate);
+	red = ((color1 >> 16) % 256) * ((100 - (double)rate) / 100)
+		+ ((color2 >> 16) % 256) * ((double)rate / 100);
+	green = ((color1 >> 8) % 256) * ((100 - (double)rate) / 100)
+		+ ((color2 >> 8) % 256) * ((double)rate / 100);
+	blue = (color1 % 256) * ((100 - (double)rate) / 100)
+		+ (color2 % 256) * ((double)rate / 100);
+	color1 = color_norm((int)red, (int)green, (int)blue);
 	return (color1);
 }
 

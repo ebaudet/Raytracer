@@ -26,6 +26,7 @@ void			eb_help_atext(char *str)
 	}
 	data->help_text = tmp;
 }
+
 void			eb_help_atextf(char *str)
 {
 	eb_help_atext(str);
@@ -56,8 +57,7 @@ static int		eb_help_content(t_win *env, t_data *data)
 		while (*(str + ++i)) {
 			mlx_string_put(env->mlx, env->win, 20, 53 + i * 11, 0xFF99FF,
 			"|                                          |");
-			ft_printf("i = %d, str[i] = %s | ", i, str[i]);
-			mlx_string_put(env->mlx, env->win, 27, 53 + i * 11, 0x66D6ED,
+			mlx_string_put(env->mlx, env->win, 31, 53 + i * 11, 0x66D6ED,
 		 		*(str+i));
 			free(*(str+i));
 		}
