@@ -85,6 +85,6 @@ char		*print_sphere(t_sphere *s)
 	                 " - position : (%f,%f,%f)\n"
 	                 " - rayon :    %f\n"
 	                 " - reflet :   %d", s->color, s->pos->x, s->pos->y,
-	                 s->pos->z, s->radius, (int)s->ref);
+	                 s->pos->z, s->radius, (int)s->ref)->str;
 	return str;
 }

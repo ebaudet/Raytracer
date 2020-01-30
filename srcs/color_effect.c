@@ -18,6 +18,7 @@ int		color_shadow(int color, double shadow)
 	int		green;
 	int		blue;
 
+	shadow = shadow > 1 ? 1 : shadow;
 	red = (color >> 16) % 256;
 	green = (color >> 8) % 256;
 	blue = color % 256;

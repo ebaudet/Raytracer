@@ -76,6 +76,6 @@ char		*print_plan(t_plan *p)
 	                 " - constante :      %d\n"
 	                 " - reflet :         %d",
 	                 p->color, p->normal->x, p->normal->y, p->normal->z,
-	                 p->constante, (int)p->ref);
+	                 p->constante, (int)p->ref)->str;
 	return str;
 }

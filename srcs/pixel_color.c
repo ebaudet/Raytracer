@@ -6,7 +6,7 @@
 /*   By: ebaudet <ebaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/27 20:55:41 by ebaudet           #+#    #+#             */
-/*   Updated: 2014/03/27 23:27:38 by ebaudet          ###   ########.fr       */
+/*   Updated: 2018/12/22 19:01:59 by ebaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,7 @@ int		color_find(void *object, t_vector *ray_dir, double coef, int depth)
 		color_calc = 0x000000;
 		if (!intersection(data_init(), ray_light, &dist))
 		{
-			// eb_debug(ft_sprintf("couleur intersection before : %p\n", color_calc), 1);
-			// calculation of Lambert color;
 			color_calc = color_lambert(object, light, &impact, color_calc);
-			// eb_debug(ft_sprintf("couleur speculaire : %p\n", color), 1);
 			color_calc = color_add(color_calc, color_speculaire(object, light, &impact, color_calc), 100);
 			color_calc = color_filter(color_calc, light->color);
 
@@ -115,8 +112,11 @@ int		color_lambert(void *object, t_light *light, t_vector *impact, int color)
 	t_vector	normal;
 	t_vector	diffusion;
 	int			color_lambert;
+	// double		dist;
 
+	// dist = dist_ab(light->pos, impact);
 	color_lambert = 0xFFFFFF;
+	// color_lambert = color_shadow(color_lambert, 10 / pow(dist / 100, 2));
 	vect_normal(&normal, impact, object);
 	vector_sub_assoc(&diffusion, light->pos, impact);
 	vector_normalize(&diffusion);

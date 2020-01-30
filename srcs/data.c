@@ -23,7 +23,8 @@ t_data	*data_init(void)
 		if (!(data = (t_data *)ft_memalloc(sizeof(t_data))))
 			ft_error("erreur malloc");
 		data->help_text = ft_sprintf("    Click on the window to have the    \n"
-		                             "           associated info.          \n");
+									 "           associated info.          \n")
+									 ->str;
 	}
 	return (data);
 }

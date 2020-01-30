@@ -92,7 +92,7 @@ char		*print_cone(t_cone *o)
 	                 " - reflet :    %d",
 	                 o->color, o->pos->x, o->pos->y,
 	                 o->pos->z, o->radius, o->dir->x, o->dir->y,
-	                 o->dir->z, (int)o->ref);
+	                 o->dir->z, (int)o->ref)->str;
 	return str;
 }
 

@@ -19,10 +19,10 @@ FILES	= env.c error.c image.c main.c rtv1.c sphere.c vector.c ray.c hook.c \
 		vector_calculation2.c ft_set_ref.c random.c debug.c help.c
 SRCS	= $(addprefix srcs/, $(FILES))
 OBJS	= $(SRCS:srcs/%.c=.obj/%.o)
-INC		= -I includes -I libft/includes -I libprintf/includes -I /usr/X11/include
+INC		= -I libprintf/includes -I includes -I /usr/X11/include
 FLAGS	= -Wall -Wextra -Werror
 FLAGS	=
-LIB		= -L libft -lft libprintf/libftprintf.a
+LIB		= -L libft libprintf/libft/libft.a -L libprintf libprintf/libftprintf.a
 LIBMLX	= -L /usr/X11/lib -lmlx -lXext -lX11
 CC		= cc
 
@@ -53,8 +53,8 @@ clean:
 	@rm -rf .obj
 
 fclean: clean
-	@make fclean -C libft
-	@make fclean -C libprintf
+	# @make fclean -C libft
+	# @make fclean -C libprintf
 	@rm -f $(NAME)
 	@echo "fclean : [\033[32mDONE\033[m]"
 

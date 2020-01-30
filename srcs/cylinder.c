@@ -93,6 +93,6 @@ char		*print_cylinder(t_cylind *c)
 	                 " - reflet :    %d",
 	                 c->color, c->pos->x, c->pos->y,
 	                 c->pos->z, c->radius, c->dir->x, c->dir->y,
-	                 c->dir->z, (int)c->ref);
+	                 c->dir->z, (int)c->ref)->str;
 	return str;
 }

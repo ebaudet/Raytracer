@@ -18,7 +18,7 @@
 # define KEY_ESC	65307			// valeur numérique de la touche Escape
 # define KEY_Q		113				// valeur numérique de la touche Q
 # define DEBUG		1				// option pour le debug
-# define DEPTH		4
+# define DEPTH		2
 
 # include "structure.h"
 # include "libftprintf.h"
