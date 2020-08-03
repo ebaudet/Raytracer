@@ -3,3 +3,4 @@
 RT
 libft/*.o
 libft/*.a
+.vscode
