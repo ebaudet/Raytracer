@@ -6,11 +6,10 @@
 /*   By: ebaudet <ebaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/14 18:53:48 by ebaudet           #+#    #+#             */
-/*   Updated: 2014/03/27 20:32:46 by ebaudet          ###   ########.fr       */
+/*   Updated: 2020/08/03 02:14:07 by ebaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
 #include <stdlib.h>
 #include <time.h> //Ne pas oublier d'inclure le fichier time.h
 #include <stdbool.h>

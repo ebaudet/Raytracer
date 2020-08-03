@@ -6,7 +6,7 @@
 /*   By: ebaudet <ebaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/15 00:56:14 by ebaudet           #+#    #+#             */
-/*   Updated: 2014/03/27 16:57:08 by ebaudet          ###   ########.fr       */
+/*   Updated: 2020/08/03 01:40:21 by ebaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ int		eb_mlx_mouse(int button,int x,int y, void *p)
 	t_data		*data;
 	t_ray		*rayon;
 	t_img		*img;
+
+	(void)p;
 
 	env = env_init();
 	data = data_init();
@@ -63,9 +65,9 @@ int		eb_mlx_key_hook(int keycode)
 	t_data		*data;
 
 	data = data_init();
-	if (keycode == KEY_ESC || keycode == KEY_Q)
+	if (keycode == KEY_ESC || keycode == 'q')
 		ft_error("Merci pour le poisson.");
-	if (keycode == 104) {
+	if (keycode == 'h') {
 		if (data->help == 0) {
 			data->help = 1;
 			eb_help();

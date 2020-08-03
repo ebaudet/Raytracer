@@ -6,7 +6,7 @@
 /*   By: ebaudet <ebaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/14 18:52:59 by ebaudet           #+#    #+#             */
-/*   Updated: 2014/03/27 21:21:39 by ebaudet          ###   ########.fr       */
+/*   Updated: 2020/08/03 03:12:14 by ebaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -246,8 +246,7 @@ void		eb_debug_object(void *object);
 /*
 **	help.c
 */
-void		eb_help_atext(char *str);
-void		eb_help_atextf(char *str);
+void		eb_help_atext(char *str, int to_free);
 void 		eb_help_text(char *str);
 void		eb_help();
 

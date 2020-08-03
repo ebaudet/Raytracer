@@ -6,7 +6,7 @@
 /*   By: ebaudet <ebaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/15 00:56:14 by ebaudet           #+#    #+#             */
-/*   Updated: 2014/03/27 16:57:08 by ebaudet          ###   ########.fr       */
+/*   Updated: 2020/08/03 03:26:56 by ebaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "rtv1.h"
 #include "libft.h"
 
-void			eb_help_atext(char *str)
+void			eb_help_atext(char *str, int to_free)
 {
 	t_data	*data;
 	char	*tmp;
@@ -25,12 +25,8 @@ void			eb_help_atext(char *str)
 		free(data->help_text);
 	}
 	data->help_text = tmp;
-}
-
-void			eb_help_atextf(char *str)
-{
-	eb_help_atext(str);
-	free(str);
+	if (to_free)
+		free(str);
 }
 
 void			eb_help_text(char *str)
@@ -48,7 +44,6 @@ static int		eb_help_content(t_win *env, t_data *data)
 {
 	int		i;
 	char	**str;
-
 
 	str = ft_strsplit(data->help_text, '\n');
 	if (str)
