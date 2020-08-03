@@ -6,7 +6,7 @@
 /*   By: ebaudet <ebaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/14 18:52:59 by ebaudet           #+#    #+#             */
-/*   Updated: 2020/08/03 03:12:14 by ebaudet          ###   ########.fr       */
+/*   Updated: 2020/08/03 05:17:43 by ebaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@
 
 # include "structure.h"
 # include "libftprintf.h"
-
+#include <stdio.h>
+#include <string.h>
 /*
 ** error.c
 */
@@ -239,7 +240,7 @@ int			rand_color(int percent, int flow, int base_color);
 /*
 **	debug.c
 */
-int			eb_debug(char *str, int free_str);
+int			eb_debug(char *str, int to_free);
 void		eb_debug_object(void *object);
 
 

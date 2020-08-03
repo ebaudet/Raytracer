@@ -6,7 +6,7 @@
 /*   By: ebaudet <ebaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/25 17:36:50 by gpetrov           #+#    #+#             */
-/*   Updated: 2014/03/27 16:58:28 by ebaudet          ###   ########.fr       */
+/*   Updated: 2020/08/03 05:31:36 by ebaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,8 @@ void			ft_scene_init(t_data *data, char **line, int fd)
 
 	win = '0';
 	cam = '0';
-	while (ft_strcmp(*line, "#end_env") != 0)
-	{
-		if (ft_strcmp(*line, "#name") == 0)
-		{
+	while (ft_strcmp(*line, "#end_env") != 0) {
+		if (ft_strcmp(*line, "#name") == 0) {
 			get_next_line(fd, line);
 			data->scene_name = ft_strdup(*line);
 		}
