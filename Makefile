@@ -6,7 +6,7 @@
 #    By: ebaudet <ebaudet@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/02/15 00:09:57 by ebaudet           #+#    #+#              #
-#    Updated: 2014/03/27 21:14:03 by ebaudet          ###   ########.fr        #
+#    Updated: 2020/08/03 04:52:07 by ebaudet          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,28 +21,27 @@ SRCS	= $(addprefix srcs/, $(FILES))
 OBJS	= $(SRCS:srcs/%.c=.obj/%.o)
 INC		= -I libprintf/includes -I includes -I /usr/X11/include
 FLAGS	= -Wall -Wextra -Werror
-FLAGS	=
+# FLAGS	=
+DEBUGFLG = -fsanitize=address -g3
 LIB		= -L libft libprintf/libft/libft.a -L libprintf libprintf/libftprintf.a
 LIBMLX	= -L /usr/X11/lib -lmlx -lXext -lX11
 CC		= cc
 
 all: $(NAME)
 
-$(NAME): libft_comp create_fold_obj msg_obj $(OBJS)
+$(NAME): lib_comp create_fold_obj msg_obj $(OBJS)
 	@echo "\n"
-	$(CC) $(FLAGS) $(OBJS) -o $(NAME) $(INC) $(LIB) $(LIBMLX)
+	$(CC) $(FLAGS) $(OBJS) -o $(NAME) $(INC) $(DEBUGFLG) $(LIB) $(LIBMLX)
 	@echo "\n > \033[36m$(NAME)\033[m project compilation [\033[32mDONE\033[m]\n"
 
 msg_obj:
 	@echo "\n > \033[36m$(NAME)\033[m compiling\n"
 
 .obj/%.o: srcs/%.c
-	@$(CC) -c $< -o $@ $(FLAGS) $(INC)
+	@$(CC) -c $< -o $@ $(FLAGS) $(INC) $(DEBUGFLG)
 	@echo -n .
 
-libft_comp:
-	@echo "\n > \033[36mlibft\033[m compiling\n"
-	@make -C libft
+lib_comp:
 	@echo "\n > \033[36mlibprintf\033[m compiling\n"
 	@make -C libprintf
 
