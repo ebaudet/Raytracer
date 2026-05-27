@@ -11,8 +11,31 @@
 /* ************************************************************************** */
 
 #include <mlx.h>
+#include <stdlib.h>
 #include "rtv1.h"
 #include "libft.h"
+
+static int	eb_render_once(void *p)
+{
+	t_img		*img;
+	t_data		*data;
+	static int	rendered = 0;
+
+	if (rendered)
+		return (0);
+	img = (t_img *)p;
+	data = data_init();
+	eb_waiting(0);
+	if (getenv("RT_TEST_PATTERN") != NULL)
+		display_test_pattern(img);
+	else
+		display_scene(img);
+	data->img = img;
+	eb_expose_hook(img);
+	mlx_do_sync(env_init()->mlx);
+	rendered = 1;
+	return (0);
+}
 
 int		eb_mlx_mouse(int button,int x,int y, void *p)
 {
@@ -51,14 +74,13 @@ void	eb_mlx(void)
 	t_img		*img;
 	t_data		*data;
 
-	img = img_init();
 	env = env_init();
+	img = img_init();
 	data = data_init();
-	eb_waiting(0);
-	display_scene(img);
 	data->img = img;
-	eb_expose_hook(img);
+	env->img = img;
 	mlx_expose_hook(env->win, eb_expose_hook, img);
+	mlx_loop_hook(env->mlx, eb_render_once, img);
 	mlx_key_hook(env->win, eb_mlx_key_hook, NULL);
 	mlx_mouse_hook(env->win, eb_mlx_mouse, NULL);
 	mlx_loop(env->mlx);

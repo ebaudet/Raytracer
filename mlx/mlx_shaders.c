@@ -29,11 +29,12 @@ int mlx_shaders_pixel(glsl_info_t *glsl)
   glsl->pixel_vshader = glCreateShader(GL_VERTEX_SHADER);
   source = strdup("#version 110 \n"
 		  "attribute vec2 position;"
+      "attribute vec2 texcoord_in;"
 		  "varying vec2 texcoord;"
 		  "void main()"
 		  "{"
 		  " gl_Position = vec4( position, 0.0, 1.0);"
-		  " texcoord = vec2(position[0]+1.0, 1.0 - position[1]) / 2.0;"
+      " texcoord = texcoord_in;"
 		  "}");
   length = strlen(source);
   glShaderSource(glsl->pixel_vshader, 1, (const GLchar**)&source, &length);
@@ -53,7 +54,7 @@ int mlx_shaders_pixel(glsl_info_t *glsl)
 		  "varying vec2 texcoord;"
 		  "void main()"
 		  "{"
-		  " gl_FragColor = texture2D(texture, texcoord);"
+		  " gl_FragColor = vec4(texture2D(texture, texcoord).rgb, 1.0);"
 		  "}");
   length = strlen(source);
   glShaderSource(glsl->pixel_fshader, 1, (const GLchar**)&source, &length);

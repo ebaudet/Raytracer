@@ -37,6 +37,7 @@
   int			size_y;
 
   int			pixel_nb;
+  GLuint		default_vao;
   GLuint		pixel_vbuffer;
   GLuint		pixel_texture;
   unsigned int		*pixtexbuff;
@@ -47,6 +48,7 @@
 - (void) flushGLContext;
 - (void) pixelPutColor: (int)color X:(int)x Y:(int)y;
 - (void) mlx_gl_draw;
+- (void) mlx_gl_draw_fullscreen_buffer:(unsigned char *)buffer width:(int)width height:(int)height;
 - (void) mlx_gl_draw_img:(mlx_img_list_t *)img andCtx:(mlx_img_ctx_t *)imgctx andX:(int)x andY:(int)y;
 - (void) mlx_gl_draw_font:(mlx_img_list_t *)img andCtx:(mlx_img_ctx_t *)imgctx andX:(int)x andY:(int)y andColor:(int)color glyphX:(int)gx glyphY:(int)gy;
 - (NSOpenGLContext *) ctx;

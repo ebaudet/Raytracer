@@ -25,6 +25,7 @@ typedef struct	glsl_info_s
   GLuint	pixel_fshader;
   GLuint	pixel_program;
   GLint		loc_pixel_position;
+  GLint		loc_pixel_texcoord;
   GLint		loc_pixel_texture;
   GLint		loc_pixel_winhalfsize;
 

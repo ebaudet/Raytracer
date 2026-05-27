@@ -16,12 +16,12 @@ NSOpenGLPixelFormatAttribute pfa_attrs[] =
     0
   };
 
-static const GLfloat pixel_vertexes[8] =
+static const GLfloat pixel_vertexes[16] =
   {
-    -1.0 , -1.0,
-    1.0, -1.0,
-    1.0, 1.0,
-    -1.0, 1.0
+    -1.0, -1.0, 0.0, 1.0,
+    1.0, -1.0, 1.0, 1.0,
+    1.0, 1.0, 1.0, 0.0,
+    -1.0, 1.0, 0.0, 0.0
   };
 
 
@@ -321,11 +321,29 @@ int get_mouse_button(NSEventType eventtype)
 
 @implementation MlxWin
 
+- (void) updateViewport
+{
+  NSSize backing = [self convertSizeToBacking:[self bounds].size];
+  glViewport(0, 0, (GLsizei)backing.width, (GLsizei)backing.height);
+}
+
+- (void) reshape
+{
+  [super reshape];
+  [self selectGLContext];
+  [self updateViewport];
+  size_x = self.bounds.size.width;
+  size_y = self.bounds.size.height;
+}
+
 - (id) initWithRect: (NSRect)rect andTitle: (NSString *)title pfaAttrs: (NSOpenGLPixelFormatAttribute *)attrs
 {
   NSOpenGLPixelFormat* pixFmt = [[NSOpenGLPixelFormat alloc] initWithAttributes:attrs];
+  NSRect viewRect;
 
-  if ((self = [super initWithFrame:rect pixelFormat:pixFmt]) != nil)
+  viewRect = NSMakeRect(0, 0, rect.size.width, rect.size.height);
+
+  if ((self = [super initWithFrame:viewRect pixelFormat:pixFmt]) != nil)
     {
       NSUInteger windowStyle = NSTitledWindowMask | NSClosableWindowMask | NSMiniaturizableWindowMask;
 
@@ -333,6 +351,7 @@ int get_mouse_button(NSEventType eventtype)
 				   styleMask:windowStyle
 				   backing:NSBackingStoreBuffered   // NSBackingStoreNonretained
 				   defer:NO];
+      [self setWantsBestResolutionOpenGLSurface:YES];
       [win setContentView:self];
       [win setTitle:title];
       [win setKeyRepeat:1];
@@ -352,8 +371,9 @@ int get_mouse_button(NSEventType eventtype)
 
       size_x = rect.size.width;
       size_y = rect.size.height;
+        [self updateViewport];
 
-      glClearColor(0, 0, 0, 0);
+      glClearColor(0, 0, 0, 1);
       glClear(GL_COLOR_BUFFER_BIT);
       glFlush();
 
@@ -382,7 +402,14 @@ int get_mouse_button(NSEventType eventtype)
 {
   bzero(&glsl, sizeof(glsl));   // so gldelete[shader/program] go silent on error.
 
+  // Ensure GL objects are created in the same context used for rendering.
+  // ctx (manually created) and [self openGLContext] (NSOpenGLView's context)
+  // are different objects with no shared resources unless we synchronize here.
+  [[self openGLContext] makeCurrentContext];
+
   glDisable(GL_DEPTH_TEST);
+  glGenVertexArrays(1, &default_vao);
+  glBindVertexArray(default_vao);
   glGenBuffers(1, &pixel_vbuffer);
   glBindBuffer(GL_ARRAY_BUFFER, pixel_vbuffer);
   glBufferData(GL_ARRAY_BUFFER, sizeof(pixel_vertexes), pixel_vertexes, GL_DYNAMIC_DRAW); // 4 points buff
@@ -414,6 +441,7 @@ int get_mouse_button(NSEventType eventtype)
   glsl.loc_pixel_texture = glGetUniformLocation(glsl.pixel_program, "texture");
   //glsl.loc_pixel_winhalfsize = glGetUniformLocation(glsl.pixel_program, "winhalfsize");
   glsl.loc_pixel_position = glGetAttribLocation(glsl.pixel_program, "position");
+  glsl.loc_pixel_texcoord = glGetAttribLocation(glsl.pixel_program, "texcoord_in");
   //      printf("err? 0x%x\n", glGetError());
 
   glUseProgram(glsl.image_program);
@@ -468,7 +496,7 @@ int get_mouse_button(NSEventType eventtype)
 {
   pixel_nb ++;
 
-  glBindTexture(GL_TEXTURE_2D, pixel_vbuffer);
+  glBindTexture(GL_TEXTURE_2D, pixel_texture);
   glTexSubImage2D(GL_TEXTURE_2D, 0, x, y, 1, 1, GL_BGRA, GL_UNSIGNED_BYTE, (GLvoid *)(&color));
 
   if (pixel_nb >= MAX_PIXEL_NB)
@@ -479,6 +507,7 @@ int get_mouse_button(NSEventType eventtype)
 {
   free(pixtexbuff);
   [self selectGLContext];
+  glDeleteVertexArrays(1, &default_vao);
   glDeleteBuffers(1, &pixel_vbuffer);
   glDeleteTextures(1, &pixel_texture);
   glDeleteProgram(glsl.pixel_program);
@@ -511,35 +540,71 @@ int get_mouse_button(NSEventType eventtype)
 
 - (void) clearWin
 {
-  glClearColor(0, 0, 0, 0);
+  [self updateViewport];
+  glClearColor(0, 0, 0, 1);
   glClear(GL_COLOR_BUFFER_BIT);
+}
+
+- (void) mlx_gl_draw_fullscreen_buffer:(unsigned char *)buffer width:(int)width height:(int)height
+{
+  [self updateViewport];
+
+  glUseProgram(glsl.pixel_program);
+  glBindVertexArray(default_vao);
+
+  glActiveTexture(GL_TEXTURE0);
+  glBindTexture(GL_TEXTURE_2D, pixel_texture);
+  glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, width, height, 0,
+	       GL_BGRA, GL_UNSIGNED_BYTE, buffer);
+  glUniform1i(glsl.loc_pixel_texture, 0);
+
+  glBindBuffer(GL_ARRAY_BUFFER, pixel_vbuffer);
+  glVertexAttribPointer(glsl.loc_pixel_position, 2, GL_FLOAT, GL_FALSE,
+			4*sizeof(GLfloat), (void*)0);
+  glEnableVertexAttribArray(glsl.loc_pixel_position);
+  glVertexAttribPointer(glsl.loc_pixel_texcoord, 2, GL_FLOAT, GL_FALSE,
+			4*sizeof(GLfloat), (void*)(2*sizeof(GLfloat)));
+  glEnableVertexAttribArray(glsl.loc_pixel_texcoord);
+
+  glDisable(GL_BLEND);
+
+  glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
+  glDisableVertexAttribArray(glsl.loc_pixel_position);
+  glDisableVertexAttribArray(glsl.loc_pixel_texcoord);
+  [[self openGLContext] flushBuffer];
 }
 
 - (void) mlx_gl_draw_img:(mlx_img_list_t *)img andCtx:(mlx_img_ctx_t *)imgctx andX:(int)x andY:(int)y
 {
+  (void)img;
+  (void)x;
+  (void)y;
+
   if (pixel_nb >0)
     [self mlx_gl_draw];
 
-  glUseProgram(glsl.image_program);
+  [self updateViewport];
+
+  glUseProgram(glsl.pixel_program);
+  glBindVertexArray(default_vao);
 
   glActiveTexture(GL_TEXTURE0);
   glBindTexture(GL_TEXTURE_2D, imgctx->texture);
-  glUniform1i(glsl.loc_image_texture, 0);
+  glUniform1i(glsl.loc_pixel_texture, 0);
 
-  glUniform2f(glsl.loc_image_winhalfsize, size_x/2, size_y/2);
-  glUniform2f(glsl.loc_image_pos, x, size_y - y);
-  glUniform2f(glsl.loc_image_size, img->width, -img->height);
+  glBindBuffer(GL_ARRAY_BUFFER, pixel_vbuffer);
+  glVertexAttribPointer(glsl.loc_pixel_position, 2, GL_FLOAT, GL_FALSE,
+			4*sizeof(GLfloat), (void*)0);
+  glEnableVertexAttribArray(glsl.loc_pixel_position);
+  glVertexAttribPointer(glsl.loc_pixel_texcoord, 2, GL_FLOAT, GL_FALSE,
+			4*sizeof(GLfloat), (void*)(2*sizeof(GLfloat)));
+  glEnableVertexAttribArray(glsl.loc_pixel_texcoord);
 
-  glBindBuffer(GL_ARRAY_BUFFER, imgctx->vbuffer);
-  glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2*sizeof(GLfloat), (void*)0);
-  glEnableVertexAttribArray(0);
-
-  glEnable(GL_BLEND);
-  glBlendFunc(GL_ONE_MINUS_SRC_ALPHA, GL_SRC_ALPHA);  // src alpha 0xFF : keep dst
-  glBlendEquation(GL_FUNC_ADD);
+  glDisable(GL_BLEND);
 
   glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
-  glDisableVertexAttribArray(0);
+  glDisableVertexAttribArray(glsl.loc_pixel_position);
+  glDisableVertexAttribArray(glsl.loc_pixel_texcoord);
 
 }
 
@@ -551,11 +616,14 @@ int get_mouse_button(NSEventType eventtype)
   if (pixel_nb >0)
     [self mlx_gl_draw];
 
+  [self updateViewport];
+
   color_tab[0] = ((float)((color&0xFF0000)>>16))/255.0;
   color_tab[1] = ((float)((color&0xFF00)>>8))/255.0;
   color_tab[2] = ((float)((color&0xFF)>>0))/255.0;
   color_tab[3] = 1.0;
   glUseProgram(glsl.font_program);
+  glBindVertexArray(default_vao);
 
   glActiveTexture(GL_TEXTURE0);
   glBindTexture(GL_TEXTURE_2D, imgctx->texture);
@@ -568,15 +636,15 @@ int get_mouse_button(NSEventType eventtype)
   glUniform2f(glsl.loc_font_atlassize, img->width, img->height);
 
   glBindBuffer(GL_ARRAY_BUFFER, imgctx->vbuffer);
-  glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2*sizeof(GLfloat), (void*)0);
-  glEnableVertexAttribArray(0);
+  glVertexAttribPointer(glsl.loc_font_position, 2, GL_FLOAT, GL_FALSE, 2*sizeof(GLfloat), (void*)0);
+  glEnableVertexAttribArray(glsl.loc_font_position);
 
   glEnable(GL_BLEND);
   glBlendFunc(GL_ONE_MINUS_SRC_ALPHA, GL_SRC_ALPHA);  // src alpha 0xFF : keep dst
   glBlendEquation(GL_FUNC_ADD);
 
   glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
-  glDisableVertexAttribArray(0);
+  glDisableVertexAttribArray(glsl.loc_font_position);
 
 }
 
@@ -586,35 +654,41 @@ int get_mouse_button(NSEventType eventtype)
   if (pixel_nb <= 0)
     return ;
 
+  [self updateViewport];
+
   glUseProgram(glsl.pixel_program);
+  glBindVertexArray(default_vao);
 
   glActiveTexture(GL_TEXTURE0);
-  glBindTexture(GL_TEXTURE_2D, pixel_vbuffer);
+  glBindTexture(GL_TEXTURE_2D, pixel_texture);
   glUniform1i(glsl.loc_pixel_texture, 0);
-  
-  glBindBuffer(GL_ARRAY_BUFFER, pixel_vbuffer);
-  glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2*sizeof(GLfloat), (void*)0);
-  glEnableVertexAttribArray(0);
 
-  glEnable(GL_BLEND);
-  glBlendFunc(GL_ONE_MINUS_SRC_ALPHA, GL_SRC_ALPHA);  // src alpha 0xFF : keep dst
-  glBlendEquation(GL_FUNC_ADD);
+  glBindBuffer(GL_ARRAY_BUFFER, pixel_vbuffer);
+  glVertexAttribPointer(glsl.loc_pixel_position, 2, GL_FLOAT, GL_FALSE,
+			4*sizeof(GLfloat), (void*)0);
+  glEnableVertexAttribArray(glsl.loc_pixel_position);
+  glVertexAttribPointer(glsl.loc_pixel_texcoord, 2, GL_FLOAT, GL_FALSE,
+			4*sizeof(GLfloat), (void*)(2*sizeof(GLfloat)));
+  glEnableVertexAttribArray(glsl.loc_pixel_texcoord);
+
+  glDisable(GL_BLEND);
 
   glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
-  glDisableVertexAttribArray(0);
+  glDisableVertexAttribArray(glsl.loc_pixel_position);
+  glDisableVertexAttribArray(glsl.loc_pixel_texcoord);
 
   pixel_nb = size_x*size_y;
   while (pixel_nb--) pixtexbuff[pixel_nb] = 0xFF000000;
   glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, size_x, size_y, 0, GL_BGRA, GL_UNSIGNED_BYTE, pixtexbuff);
   pixel_nb = 0;
-  
+
 }
 
 @end
 
 
 // mlx API
- 
+
 
 void *mlx_new_window(mlx_ptr_t *mlx_ptr, int size_x, int size_y, char *title)
 {

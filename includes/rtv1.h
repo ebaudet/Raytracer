@@ -37,6 +37,7 @@ void		init_scene(void);
 void		display_pixel(t_img *img, int x, int y, t_ray *rayon);
 int			color_pixel(t_ray *rayon, double coef, int depth);
 void		display_scene(t_img *img);
+void		display_test_pattern(t_img *img);
 
 /*
 ** vector.c

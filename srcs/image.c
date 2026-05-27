@@ -44,12 +44,16 @@ void		img_del(t_img *img)
 void		eb_put_pixel_to_img(t_img *img, int x, int y, int color)
 {
 	t_win			*env;
+	t_data			*data;
 	unsigned int	mgcv;
 	int				i;
 	int			bytes_per_pixel;
 
+	data = data_init();
+	if (x < 0 || y < 0 || x >= data->win_size_x || y >= data->win_size_y)
+		return ;
 	env = env_init();
-	mgcv = mlx_get_color_value(env->mlx, color);
+	mgcv = mlx_get_color_value(env->mlx, color & 0x00FFFFFF);
 	bytes_per_pixel = img->bpp / 8;
 	i = x * bytes_per_pixel + y * img->size_line;
 	if (img->endian == 0)
@@ -66,7 +70,7 @@ void		eb_put_pixel_to_img(t_img *img, int x, int y, int color)
 	{
 		if (bytes_per_pixel == 4)
 		{
-			img->data[i] = 0xFF;
+			img->data[i] = 0x00;
 			img->data[i + 1] = (mgcv & 0xFF0000) >> 16;
 			img->data[i + 2] = (mgcv & 0xFF00) >> 8;
 			img->data[i + 3] = (mgcv & 0xFF);

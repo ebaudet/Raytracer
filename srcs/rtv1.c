@@ -98,3 +98,29 @@ void	display_scene(t_img *img)
 		y++;
 	}
 }
+
+void	display_test_pattern(t_img *img)
+{
+	t_data		*d;
+	int			x;
+	int			y;
+	int			color;
+
+	d = data_init();
+	y = 0;
+	while (y < d->win_size_y)
+	{
+		x = 0;
+		while (x < d->win_size_x)
+		{
+			color = ((x * 255 / (d->win_size_x - 1)) << 16)
+				+ ((y * 255 / (d->win_size_y - 1)) << 8)
+				+ (((x + y) / 2) % 256);
+			if (((x / 24) + (y / 24)) % 2 == 0)
+				color ^= 0x202020;
+			eb_put_pixel_to_img(img, x, y, color);
+			x++;
+		}
+		y++;
+	}
+}

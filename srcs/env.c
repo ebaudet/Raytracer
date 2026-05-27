@@ -28,7 +28,7 @@ t_win	*env_init(void)
 		win->mlx = mlx_init();
 		win->win = mlx_new_window(win->mlx, d->win_size_x, d->win_size_y
 			, d->scene_name);
-		win->img = img_init();
+		win->img = NULL;
 	}
 	return (win);
 }
