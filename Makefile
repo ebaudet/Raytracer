@@ -20,7 +20,7 @@ FILES	= env.c error.c image.c main.c rtv1.c sphere.c vector.c ray.c hook.c \
 SRCS	= $(addprefix srcs/, $(FILES))
 OBJS	= $(SRCS:srcs/%.c=.obj/%.o)
 UNAME_S	:= $(shell uname -s)
-MLX_DIR	?= minilibx_macos
+MLX_DIR	?= mlx
 INC		= -I libprintf/includes -I includes
 FLAGS	= -Wall -Wextra -Werror
 # FLAGS	=
@@ -72,6 +72,7 @@ clean:
 
 fclean: clean
 	@make fclean -C libprintf
+	@make clean -C $(MLX_DIR);
 	@rm -f $(NAME)
 	@echo "fclean : [\033[32mDONE\033[m]"
 
