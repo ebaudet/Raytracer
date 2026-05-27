@@ -114,6 +114,15 @@ It prints the parsed scene as JSON. It can also read from stdin:
 ./tools/scene_parser.py < map/sphere.scene
 ```
 
+A stricter linter is available to validate scene/map files:
+
+```bash
+./tools/scene_lint.py map/sphere.scene
+./tools/scene_lint.py
+```
+
+Without arguments, it checks every `map/*.scene` and `map/*.map` file.
+
 ## Controls
 
 In the render window:
