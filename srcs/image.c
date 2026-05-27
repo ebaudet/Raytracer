@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <mlx.h>
+#include "mlx.h"
 #include <stdlib.h>
 #include "rtv1.h"
 #include "libft.h"
