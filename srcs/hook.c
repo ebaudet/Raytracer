@@ -30,12 +30,15 @@ int		eb_mlx_mouse(int button,int x,int y, void *p)
 	if (button == 1)
 	{
 		rayon = ray_new();
-		img = img_init();
+		img = data->img;
 		eb_help_text(ft_sprintf("Mouse in Win[%p]\nbutton %d at %dx%d.\n",
 			env->win, button, x, y)->str);
-		display_pixel(img, x, y, rayon);
+		if (img != NULL)
+		{
+			display_pixel(img, x, y, rayon);
+			eb_expose_hook(img);
+		}
 		eb_help();
-		img_del(img);
 		ray_del(rayon);
 	}
 	data->debug = 0;
@@ -54,6 +57,7 @@ void	eb_mlx(void)
 	eb_waiting(0);
 	display_scene(img);
 	data->img = img;
+	eb_expose_hook(img);
 	mlx_expose_hook(env->win, eb_expose_hook, img);
 	mlx_key_hook(env->win, eb_mlx_key_hook, NULL);
 	mlx_mouse_hook(env->win, eb_mlx_mouse, NULL);

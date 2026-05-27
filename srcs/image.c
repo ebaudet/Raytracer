@@ -46,11 +46,38 @@ void		eb_put_pixel_to_img(t_img *img, int x, int y, int color)
 	t_win			*env;
 	unsigned int	mgcv;
 	int				i;
+	int			bytes_per_pixel;
 
 	env = env_init();
 	mgcv = mlx_get_color_value(env->mlx, color);
-	i = x * 4 + y * img->size_line;
-	img->data[i] = (mgcv & 0xFF);
-	img->data[i + 1] = (mgcv & 0xFF00) >> 8;
-	img->data[i + 2] = (mgcv & 0xFF0000) >> 16;
+	bytes_per_pixel = img->bpp / 8;
+	i = x * bytes_per_pixel + y * img->size_line;
+	if (img->endian == 0)
+	{
+		img->data[i] = (mgcv & 0xFF);
+		if (bytes_per_pixel > 1)
+			img->data[i + 1] = (mgcv & 0xFF00) >> 8;
+		if (bytes_per_pixel > 2)
+			img->data[i + 2] = (mgcv & 0xFF0000) >> 16;
+		if (bytes_per_pixel > 3)
+			img->data[i + 3] = 0xFF;
+	}
+	else
+	{
+		if (bytes_per_pixel == 4)
+		{
+			img->data[i] = 0xFF;
+			img->data[i + 1] = (mgcv & 0xFF0000) >> 16;
+			img->data[i + 2] = (mgcv & 0xFF00) >> 8;
+			img->data[i + 3] = (mgcv & 0xFF);
+		}
+		else
+		{
+			img->data[i] = (mgcv & 0xFF);
+			if (bytes_per_pixel > 1)
+				img->data[i + 1] = (mgcv & 0xFF00) >> 8;
+			if (bytes_per_pixel > 2)
+				img->data[i + 2] = (mgcv & 0xFF0000) >> 16;
+		}
+	}
 }

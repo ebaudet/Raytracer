@@ -71,8 +71,7 @@ clean:
 	@rm -rf .obj
 
 fclean: clean
-	# @make fclean -C libft
-	# @make fclean -C libprintf
+	@make fclean -C libprintf
 	@rm -f $(NAME)
 	@echo "fclean : [\033[32mDONE\033[m]"
 
