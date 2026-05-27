@@ -34,11 +34,11 @@ sphere
 0xFF7260
 #end_object
 
-##type
+#type
 sphere
 #radius
 100
-origin
+#origin
 100
 100
 100

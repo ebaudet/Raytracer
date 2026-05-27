@@ -63,7 +63,7 @@ light
 
 #type
 sphere
-##ref
+#ref
 90
 #radius
 100
