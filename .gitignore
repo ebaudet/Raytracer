@@ -4,3 +4,4 @@ RT
 libft/*.o
 libft/*.a
 .vscode
+mlx/libmlx.a
