@@ -100,6 +100,20 @@ Other scenes:
 ./RT < map/test.scene
 ```
 
+## Python Scene Parser
+
+A Python parser/validator is available for inspecting scene files:
+
+```bash
+./tools/scene_parser.py map/sphere.scene
+```
+
+It prints the parsed scene as JSON. It can also read from stdin:
+
+```bash
+./tools/scene_parser.py < map/sphere.scene
+```
+
 ## Controls
 
 In the render window:
