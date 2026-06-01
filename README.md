@@ -16,6 +16,13 @@ This project is an educational raytracer focused on:
 - Scene parsing from a text format
 - Real-time display with MiniLibX
 
+![Example render of a scene with a sphere, plane, and light](documentation/bla.png)
+![Example render of a scene with a sphere, plane, and light](documentation/cone.png)
+![Example render of a scene with a sphere, plane, and light](documentation/SOLAR.png)
+![Example render of a scene with a sphere, plane, and light](documentation/sphere.png)
+![Example render of a scene with a sphere, plane, and light](documentation/test.png)
+![Example render of a scene with a sphere, plane, and light](documentation/TestColor.png)
+
 ## Features
 
 - Supported objects:
