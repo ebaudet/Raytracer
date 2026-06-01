@@ -91,7 +91,8 @@ int		eb_mlx_key_hook(int keycode)
 	t_data		*data;
 
 	data = data_init();
-	if (keycode == KEY_ESC || keycode == 'q')
+	if (keycode == KEY_ESC || keycode == KEY_MAC_ESC || keycode == 'q'
+		|| keycode == KEY_MAC_Q)
 		ft_error("Merci pour le poisson.");
 	if (keycode == 'h')
 	{

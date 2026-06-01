@@ -13,12 +13,14 @@
 #ifndef RTV1_H
 # define RTV1_H
 
-# define WIDTH		1000			// largeur de la fenêtre
-# define HEIGHT		500				// hauteur de la fenêtre
-# define KEY_ESC	65307			// valeur numérique de la touche Escape
-# define KEY_Q		113				// valeur numérique de la touche Q
-# define DEBUG		1				// option pour le debug
-# define DEPTH		2
+# define WIDTH			1000			// largeur de la fenêtre
+# define HEIGHT			500				// hauteur de la fenêtre
+# define KEY_ESC		65307			// valeur numérique de la touche Escape
+# define KEY_Q			113				// valeur numérique de la touche Q
+# define KEY_MAC_ESC	53
+# define KEY_MAC_Q		12
+# define DEBUG			1				// option pour le debug
+# define DEPTH			2
 
 # include "structure.h"
 # include "libftprintf.h"
