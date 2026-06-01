@@ -20,8 +20,8 @@ This project is an educational raytracer focused on:
 ![Example render of a scene with a sphere, plane, and light](documentation/cone.png)
 ![Example render of a scene with a sphere, plane, and light](documentation/SOLAR.png)
 ![Example render of a scene with a sphere, plane, and light](documentation/sphere.png)
-![Example render of a scene with a sphere, plane, and light](documentation/test.png)
 ![Example render of a scene with a sphere, plane, and light](documentation/TestColor.png)
+![Example render of a scene with a sphere, plane, and light](documentation/test_with_help_menu.png)
 
 ## Features
 

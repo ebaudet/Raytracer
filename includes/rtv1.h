@@ -19,6 +19,7 @@
 # define KEY_Q			113				// valeur numérique de la touche Q
 # define KEY_MAC_ESC	53
 # define KEY_MAC_Q		12
+# define KEY_MAC_H  	4
 # define DEBUG			1				// option pour le debug
 # define DEPTH			2
 
